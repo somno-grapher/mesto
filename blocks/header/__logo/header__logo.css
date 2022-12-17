@@ -1,0 +1,4 @@
+.header__logo {
+  /* eliminate space under the baseline */
+  display: block;
+}
