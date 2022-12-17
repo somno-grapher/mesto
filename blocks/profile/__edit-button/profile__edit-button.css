@@ -1,0 +1,16 @@
+.profile__edit-button {
+  margin-left: 18px;
+  margin-top: 15px;
+  transition: .3s;
+}
+
+.profile__edit-button:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 917px) {
+  .profile__edit-button {
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+}

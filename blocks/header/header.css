@@ -1,0 +1,21 @@
+.header {
+  position: relative;
+  min-height: 74px;
+}
+
+.header::after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 1px solid #545454;
+  opacity: .7;
+  content: '';
+}
+
+@media screen and (max-width: 917px) {
+  .header {
+    min-height: 56px;
+    padding-left: 27px;
+  }
+}

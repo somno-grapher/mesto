@@ -1,0 +1,19 @@
+.close-button {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  width: 32px;
+  height: 32px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../../images/icons/diagonal-cross.svg");
+  cursor: pointer;
+}
+
+@media screen and (max-width: 917px) {
+  .close-button {
+    width: 20px;
+    height: 20px;
+  }
+}

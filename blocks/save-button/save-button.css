@@ -1,0 +1,19 @@
+.save-button {
+  border-radius: 2px;
+  background-color: #000;
+  border: none;
+  padding: 0;
+  height: 50px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.22;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 917px) {
+  .save-button {
+    font-size: 14px;
+    line-height: 1.21;
+  }
+}

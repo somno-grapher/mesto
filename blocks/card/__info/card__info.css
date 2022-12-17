@@ -1,0 +1,12 @@
+.card__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 79px;
+  padding-left: 21px;
+  padding-right: 20px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #fff;
+}

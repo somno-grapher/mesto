@@ -1,0 +1,18 @@
+.add-button {
+  border-radius: 0;
+  background-color: transparent;
+  border: 1px solid #fff;
+  padding: 0;
+  height: 50px;
+  background-position: center;
+  background-size: 22px;
+  background-repeat: no-repeat;
+  background-image: url("../../images/icons/plus.svg");
+  cursor: pointer;
+}
+
+@media screen and (max-width: 917px) {
+  .add-button {
+  background-size: 16px;
+  }
+}
