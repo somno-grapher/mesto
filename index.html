@@ -18,10 +18,10 @@
         <img src="./images/avatar.jpg" alt="Аватар" class="avatar">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="edit-button profile__edit-button"></button>
+          <button type="button" class="edit-button profile__edit-button"></button>
           <p class="profile__about">Исследователь океана</p>
         </div>
-        <button class="add-button profile__add-button"></button>
+        <button type="button" class="add-button profile__add-button"></button>
       </section>
       <section class="photo-grid">
         <ul class="photo-grid__list">
@@ -29,42 +29,42 @@
             <img src="./images/spring.jpg" alt="Весна" class="card__photo">
             <div class="card__info">
               <h2 class="card__title">Весна</h2>
-              <button class="like-button card__like-button"></button>
+              <button type="button" class="like-button card__like-button"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/lake.jpg" alt="Озеро" class="card__photo">
             <div class="card__info">
               <h2 class="card__title">Лесное озеро</h2>
-              <button class="like-button card__like-button"></button>
+              <button type="button" class="like-button card__like-button"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/winter.jpg" alt="Зимние сугробы" class="card__photo">
             <div class="card__info">
               <h2 class="card__title">Зимние сугробы</h2>
-              <button class="like-button card__like-button"></button>
+              <button type="button" class="like-button card__like-button"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/river-forest.jpg" alt="Лес по берегам реки" class="card__photo">
             <div class="card__info">
               <h2 class="card__title">Лес по берегам реки</h2>
-              <button class="like-button card__like-button"></button>
+              <button type="button" class="like-button card__like-button"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/spring-2.jpg" alt="Вишня в цвету" class="card__photo">
             <div class="card__info">
               <h2 class="card__title">Вишня в цвету</h2>
-              <button class="like-button card__like-button"></button>
+              <button type="button" class="like-button card__like-button"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/baikal.jpg" alt="Байкальский лед" class="card__photo">
             <div class="card__info">
               <h2 class="card__title">Байкальский лед</h2>
-              <button class="like-button card__like-button"></button>
+              <button type="button" class="like-button card__like-button"></button>
             </div>
           </li>
         </ul>
@@ -76,13 +76,15 @@
   </div>
 
   <div class="popup">
-    <form class="popup__container">
-      <button type="reset" class="close-button popup__close-button"></button>
+    <div class="popup__container">
+      <button type="button" class="close-button popup__close-button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <input type="text" class="input-field popup__name-input">
-      <input type="text" class="input-field popup__about-input">
-      <button type="submit" class="save-button popup__save-button">Сохранить</button>
-    </form>
+      <form name="edit-profile-form" class="popup__form">
+        <input type="text" class="input-field popup__name-input">
+        <input type="text" class="input-field popup__about-input">
+        <button type="submit" class="save-button popup__save-button">Сохранить</button>
+      </form>
+    </div>
   </div>
 
   <script src="./scripts/index.js"></script>
