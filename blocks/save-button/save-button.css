@@ -15,5 +15,6 @@
   .save-button {
     font-size: 14px;
     line-height: 1.21;
+    height: 46px;
   }
 }
