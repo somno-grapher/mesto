@@ -12,12 +12,14 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-popupContainer.addEventListener('submit', function (event) {
+function handleFormSubmit(event) {
   event.preventDefault();
   profileName.textContent = popupNameInput.value;
   profileAbout.textContent = popupAboutInput.value;
   closePopup(popup);
-});
+}
+
+popupContainer.addEventListener('submit', handleFormSubmit);
 
 popupCloseButton.addEventListener('click', function () {
   closePopup(popup);
