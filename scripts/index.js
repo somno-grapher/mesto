@@ -26,6 +26,8 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+const cardTitleQuerySelector = '.card__title';
+const cardPhotoQuerySelector = '.card__photo';
 
 //document scope
 const photoGridList = document.querySelector('.photo-grid__list');
@@ -35,6 +37,7 @@ let profileAbout = document.querySelector('.profile__about');
 let profileName = document.querySelector('.profile__name');
 
 // photoGridList scope
+// TODO: check .querySelector('.card')
 const cardTemplate = photoGridList.querySelector('#card-template').content.querySelector('.card');
 
 // popup scope
@@ -45,17 +48,21 @@ const popupForm = popup.querySelector('.popup__container');
 let popupAboutInput = popupForm.querySelector('.input-field_name_profile-about');
 let popupNameInput = popupForm.querySelector('.input-field_name_profile-name');
 
+
 // * functions: ascending order
+
+function addCard(container, template, titleQuerySelector, photoQuerySelector, title, link) {
+  // create card
+  const card = template.cloneNode(true);
+  card.querySelector(titleQuerySelector).textContent = title;
+  card.querySelector(photoQuerySelector).src = link;
+  // insert card
+  container.append(card);
+  return card;
+}
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-}
-
-function createCard(cardTemplate, titleClass, photoClass, name, link) {
-  const card = cardTemplate.cloneNode(true);
-  card.querySelector(titleClass).textContent = name;
-  card.querySelector(photoClass).src = link;
-  return card;
 }
 
 function handleFormSubmit(event) {
@@ -65,10 +72,6 @@ function handleFormSubmit(event) {
   closePopup(popup);
 }
 
-function renderCard(container, cardTemplate, titleClass, photoClass, name, link) {
-  card = createCard(cardTemplate, titleClass, photoClass, name, link)
-  container.append(card);
-}
 
 // * event listeners: ascending order
 
@@ -87,6 +90,7 @@ profileEditButton.addEventListener('click', function () {
 
 // * main code
 
+// insert initial cards
 initialCards.forEach(item => {
-  renderCard(photoGridList, cardTemplate, '.card__title', '.card__photo', item.name, item.link);
+  addCard(photoGridList, cardTemplate, cardTitleQuerySelector, cardPhotoQuerySelector, item.name, item.link);
 });
