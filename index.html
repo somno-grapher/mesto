@@ -3,86 +3,69 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
   <title>Mesto Россия</title>
-  <link href="./pages/index.css" rel="stylesheet">
+  <link href="./pages/index.css"
+        rel="stylesheet">
 </head>
 
 <body class="root">
   <div class="page">
     <header class="header page__header">
-      <img src="./images/logo/mesto-russia-logo.svg" alt="Логотип" class="logo header__logo">
+      <img src="./images/logo/mesto-russia-logo.svg"
+           alt="Логотип"
+           class="logo header__logo">
     </header>
     <main class="content page__content">
       <section class="profile content__profile">
-        <img src="./images/avatar.jpg" alt="Аватар" class="avatar">
+        <img src="./images/avatar.jpg"
+             alt="Аватар"
+             class="avatar">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button type="button" class="edit-button profile__edit-button"></button>
+          <button type="button"
+                  class="edit-button profile__edit-button"></button>
           <p class="profile__about">Исследователь океана</p>
         </div>
-        <button type="button" class="add-button profile__add-button"></button>
+        <button type="button"
+                class="add-button profile__add-button"></button>
       </section>
       <section class="photo-grid">
         <ul class="photo-grid__list">
-          <li class="card">
-            <img src="./images/spring.jpg" alt="Весенняя трава." class="card__photo">
-            <div class="card__info">
-              <h2 class="card__title">Весенняя трава</h2>
-              <button type="button" class="like-button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/lake.jpg" alt="Лесное озеро." class="card__photo">
-            <div class="card__info">
-              <h2 class="card__title">Лесное озеро</h2>
-              <button type="button" class="like-button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/winter.jpg" alt="Зимние сугробы." class="card__photo">
-            <div class="card__info">
-              <h2 class="card__title">Зимние сугробы</h2>
-              <button type="button" class="like-button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/river-forest.jpg" alt="Лес по берегам реки." class="card__photo">
-            <div class="card__info">
-              <h2 class="card__title">Лес по берегам реки</h2>
-              <button type="button" class="like-button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/spring-2.jpg" alt="Вишня в цвету." class="card__photo">
-            <div class="card__info">
-              <h2 class="card__title">Вишня в цвету</h2>
-              <button type="button" class="like-button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/baikal.jpg" alt="Байкальский лед." class="card__photo">
-            <div class="card__info">
-              <h2 class="card__title">Байкальский лед</h2>
-              <button type="button" class="like-button card__like-button"></button>
-            </div>
-          </li>
+          <template id="card-template">
+            <li class="card">
+              <img class="card__photo">
+              <div class="card__info">
+                <h2 class="card__title"></h2>
+                <button type="button"
+                        class="like-button card__like-button"></button>
+              </div>
+            </li>
+          </template>
         </ul>
       </section>
     </main>
     <footer class="footer">
-      <p class="footer__copyright">&copy;&nbsp;2022 Николай Майорников</p>
+      <p class="footer__copyright">©&nbsp;2022 Николай Майорников</p>
     </footer>
   </div>
 
   <div class="popup">
     <div class="popup__container">
-      <button type="button" class="close-button popup__close-button"></button>
+      <button type="button"
+              class="close-button popup__close-button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form name="profile-form" class="popup__form">
-        <input name="profile-name" type="text" class="input-field input-field_name_profile-name">
-        <input name="profile-about" type="text" class="input-field input-field_name_profile-about">
-        <button type="submit" class="save-button popup__save-button">Сохранить</button>
+      <form name="profile-form"
+            class="popup__form">
+        <input name="profile-name"
+               type="text"
+               class="input-field input-field_name_profile-name">
+        <input name="profile-about"
+               type="text"
+               class="input-field input-field_name_profile-about">
+        <button type="submit"
+                class="save-button popup__save-button">Сохранить</button>
       </form>
     </div>
   </div>
