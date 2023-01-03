@@ -1,0 +1,12 @@
+.delete-button {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  width: 18px;
+  height: 19px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../../images/icons/bin.svg");
+  cursor: pointer;
+}

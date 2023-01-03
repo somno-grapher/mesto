@@ -63,10 +63,14 @@ let inputFieldNameProfileName = popupTypeEditProfileForm.querySelector('.input-f
 function addCard(container, template, titleQuerySelector, photoQuerySelector, title, link, prepend) {
   // create card
   const card = template.cloneNode(true);
+  let deleteButton = card.querySelector('.delete-button');
   let likeButton = card.querySelector('.like-button');
   card.querySelector(titleQuerySelector).textContent = title;
   card.querySelector(photoQuerySelector).src = link;
   //insert event listeners
+  deleteButton.addEventListener('click', () => {
+    card.remove();
+  });
   likeButton.addEventListener('click', (event) => {
     event.target.classList.toggle('like-button_active');
   });
