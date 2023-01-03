@@ -51,12 +51,12 @@
     </footer>
   </div>
 
-  <div class="popup">
+  <div class="popup popup_type_edit-profile">
     <div class="popup__container">
       <button type="button"
               class="close-button popup__close-button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form name="profile-form"
+      <form name="edit-profile-form"
             class="popup__form">
         <input name="profile-name"
                type="text"
@@ -64,6 +64,25 @@
         <input name="profile-about"
                type="text"
                class="input-field input-field_name_profile-about">
+        <button type="submit"
+                class="save-button popup__save-button">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_type_add-card">
+    <div class="popup__container">
+      <button type="button"
+              class="close-button popup__close-button"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form name="add-card-form"
+            class="popup__form">
+        <input name="card-title"
+               type="text"
+               class="input-field input-field_name_card-title">
+        <input name="card-photo-link"
+               type="text"
+               class="input-field input-field_name_card-photo-link">
         <button type="submit"
                 class="save-button popup__save-button">Сохранить</button>
       </form>
