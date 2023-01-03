@@ -1,0 +1,5 @@
+.large-photo {
+  width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+}

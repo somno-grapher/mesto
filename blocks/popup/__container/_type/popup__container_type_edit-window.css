@@ -1,0 +1,15 @@
+.popup__container_type_edit-window {
+  width: 430px;
+  box-sizing: border-box;
+  padding: 34px 36px 37px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+@media screen and (max-width: 917px) {
+  .popup__container__type_edit-window {
+    width: 282px;
+    padding: 25px 22px;
+  }
+}

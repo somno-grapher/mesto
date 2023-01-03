@@ -32,11 +32,16 @@ const cardPhotoQuerySelector = '.card__photo';
 //document scope
 const popupTypeAddCard = document.querySelector('.popup_type_add-card');
 const popupTypeEditProfile = document.querySelector('.popup_type_edit-profile');
+const popupTypePhoto = document.querySelector('.popup_type_photo');
 const photoGridList = document.querySelector('.photo-grid__list');
 const addButtonTypeCard = document.querySelector('.add-button_type_card');
 const editButtonTypeProfile = document.querySelector('.edit-button_type_profile');
 let profileAbout = document.querySelector('.profile__about');
 let profileName = document.querySelector('.profile__name');
+
+// photoGridList scope
+// TODO: check .querySelector('.card')
+const cardTemplate = photoGridList.querySelector('#card-template').content.querySelector('.card');
 
 // popupTypeAddCard scope
 const popupTypeAddCardCloseButton = popupTypeAddCard.querySelector('.popup__close-button');
@@ -46,9 +51,10 @@ const popupTypeAddCardForm = popupTypeAddCard.querySelector('.popup__form');
 let inputFieldNameCardTitle = popupTypeAddCardForm.querySelector('.input-field_name_card-title');
 let inputFieldNameCardPhotoLink = popupTypeAddCardForm.querySelector('.input-field_name_card-photo-link');
 
-// photoGridList scope
-// TODO: check .querySelector('.card')
-const cardTemplate = photoGridList.querySelector('#card-template').content.querySelector('.card');
+// popupTypePhoto scope
+let largePhoto = popupTypePhoto.querySelector('.large-photo');
+let popupTypePhotoTitle = popupTypePhoto.querySelector('.popup__title');
+let popupTypePhotoCloseButton = popupTypePhoto.querySelector('.popup__close-button');
 
 // popupTypeEditProfile scope
 const popupTypeEditProfileCloseButton = popupTypeEditProfile.querySelector('.popup__close-button');
@@ -60,13 +66,17 @@ let inputFieldNameProfileName = popupTypeEditProfileForm.querySelector('.input-f
 
 // * functions: ascending order
 
-function addCard(container, template, titleQuerySelector, photoQuerySelector, title, link, prepend) {
+function addCard(container, template, titleQuerySelector, photoQuerySelector, cardTitle, cardLink, prepend) {
+
   // create card
   const card = template.cloneNode(true);
   let deleteButton = card.querySelector('.delete-button');
   let likeButton = card.querySelector('.like-button');
-  card.querySelector(titleQuerySelector).textContent = title;
-  card.querySelector(photoQuerySelector).src = link;
+  let photo = card.querySelector(photoQuerySelector);
+  let title = card.querySelector(titleQuerySelector);
+  photo.src = cardLink;
+  title.textContent = cardTitle;
+
   //insert event listeners
   deleteButton.addEventListener('click', () => {
     card.remove();
@@ -74,6 +84,12 @@ function addCard(container, template, titleQuerySelector, photoQuerySelector, ti
   likeButton.addEventListener('click', (event) => {
     event.target.classList.toggle('like-button_active');
   });
+  photo.addEventListener('click', () => {
+    largePhoto.src = cardLink;
+    popupTypePhotoTitle.textContent = cardTitle;
+    openPopup(popupTypePhoto);
+  });
+
   // insert card
   if (prepend) {
     container.prepend(card);
@@ -106,6 +122,10 @@ function openPopup(popup) {
 
 
 // * event listeners: ascending order
+
+popupTypePhotoCloseButton.addEventListener('click', () => {
+  closePopup(popupTypePhoto);;
+});
 
 popupTypeAddCardCloseButton.addEventListener('click', () => {
   closePopup(popupTypeAddCard);
