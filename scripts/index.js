@@ -1,5 +1,6 @@
-// * consts and vars: scope descending then alphabeticaly ascending
+// * vars: scope descending then alphabeticaly ascending
 
+// abstract scope
 const initialCards = [
   {
     name: 'Архыз',
@@ -28,8 +29,13 @@ const initialCards = [
 ];
 const cardTitleQuerySelector = '.card__title';
 const cardPhotoQuerySelector = '.card__photo';
+const deleteButtonQuerySelector = '.delete-button';
+const interactiveElementClass = 'mix-interactive-element';
+const likeButtonQuerySelector = '.like-button';
+const likeButtonActiveClass = 'like-button_active';
+const popupOpenedClass = 'popup_opened';
 
-//document scope
+// document scope
 const popupTypeAddCard = document.querySelector('.popup_type_add-card');
 const popupTypeEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupTypePhoto = document.querySelector('.popup_type_photo');
@@ -70,13 +76,13 @@ function addCard(container, template, titleQuerySelector, photoQuerySelector, ca
 
   // create card
   const card = template.cloneNode(true);
-  const deleteButton = card.querySelector('.delete-button');
-  const likeButton = card.querySelector('.like-button');
+  const deleteButton = card.querySelector(deleteButtonQuerySelector);
+  const likeButton = card.querySelector(likeButtonQuerySelector);
   const photo = card.querySelector(photoQuerySelector);
   const title = card.querySelector(titleQuerySelector);
   photo.src = cardLink;
   photo.alt = cardTitle;
-  photo.classList.add('mix-interactive-element');
+  photo.classList.add(interactiveElementClass);
   title.textContent = cardTitle;
 
   //insert event listeners
@@ -84,7 +90,7 @@ function addCard(container, template, titleQuerySelector, photoQuerySelector, ca
     card.remove();
   });
   likeButton.addEventListener('click', (event) => {
-    event.target.classList.toggle('like-button_active');
+    event.target.classList.toggle(likeButtonActiveClass);
   });
   photo.addEventListener('click', () => {
     largePhoto.src = cardLink;
@@ -102,7 +108,7 @@ function addCard(container, template, titleQuerySelector, photoQuerySelector, ca
 }
 
 function closePopup(popup) {
-  popup.classList.remove('popup_opened');
+  popup.classList.remove(popupOpenedClass);
 }
 
 function handlePopupTypeAddCardFormSubmit(event) {
@@ -120,7 +126,7 @@ function handlePopupTypeEditProfileFormSubmit(event) {
 }
 
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
+  popup.classList.add(popupOpenedClass);
 }
 
 
