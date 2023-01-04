@@ -87,6 +87,7 @@ function addCard(container, template, titleQuerySelector, photoQuerySelector, ca
   });
   photo.addEventListener('click', () => {
     largePhoto.src = cardLink;
+    largePhoto.alt = cardTitle;
     popupTypePhotoTitle.textContent = cardTitle;
     openPopup(popupTypePhoto);
   });
