@@ -74,8 +74,23 @@ const popupTypePhotoCloseButton = popupTypePhoto.querySelector('.popup__close-bu
 // * functions: ascending order
 
 function addCard(cardTitle, cardLink, prepend = true) {
+  const item = {
+    name: cardTitle,
+    link: cardLink
+  }
+  const card = createCard(cardTitle, cardLink);
+  if (prepend) {
+    photoGridList.prepend(card);
+  } else {
+    photoGridList.append(card);
+  }
+}
 
-  // create card
+function closePopup(popup) {
+  popup.classList.remove(popupOpenedClass);
+}
+
+function createCard(cardTitle, cardLink) {
   const card = cardTemplate.cloneNode(true);
   const deleteButton = card.querySelector(deleteButtonQuerySelector);
   const likeButton = card.querySelector(likeButtonQuerySelector);
@@ -85,8 +100,6 @@ function addCard(cardTitle, cardLink, prepend = true) {
   photo.classList.add(interactiveElementClass);
   photo.src = cardLink;
   title.textContent = cardTitle;
-
-  //insert event listeners
   deleteButton.addEventListener('click', () => {
     card.remove();
   });
@@ -99,17 +112,7 @@ function addCard(cardTitle, cardLink, prepend = true) {
     popupTypePhotoTitle.textContent = cardTitle;
     openPopup(popupTypePhoto);
   });
-
-  // insert card
-  if (prepend) {
-    photoGridList.prepend(card);
-  } else {
-    photoGridList.append(card);
-  }
-}
-
-function closePopup(popup) {
-  popup.classList.remove(popupOpenedClass);
+  return card;
 }
 
 function handlePopupTypeAddCardFormSubmit(event) {
