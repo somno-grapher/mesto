@@ -138,12 +138,6 @@ function openPopup(popup) {
 
 addButtonTypeCard.addEventListener('click', () => {
   openPopup(popupTypeAddCard);
-
-  // optional default values
-  const initialCardsRandomIndex = Math.floor(Math.random() * initialCards.length);
-  inputFieldNameCardTitle.value = initialCards[initialCardsRandomIndex].name;
-  inputFieldNameCardPhotoLink.value = initialCards[initialCardsRandomIndex].link;
-
 });
 
 editButtonTypeProfile.addEventListener('click', () => {
