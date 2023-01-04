@@ -70,10 +70,10 @@ function addCard(container, template, titleQuerySelector, photoQuerySelector, ca
 
   // create card
   const card = template.cloneNode(true);
-  let deleteButton = card.querySelector('.delete-button');
-  let likeButton = card.querySelector('.like-button');
-  let photo = card.querySelector(photoQuerySelector);
-  let title = card.querySelector(titleQuerySelector);
+  const deleteButton = card.querySelector('.delete-button');
+  const likeButton = card.querySelector('.like-button');
+  const photo = card.querySelector(photoQuerySelector);
+  const title = card.querySelector(titleQuerySelector);
   photo.src = cardLink;
   photo.alt = cardTitle;
   title.textContent = cardTitle;
@@ -126,7 +126,7 @@ function openPopup(popup) {
 // * event listeners: ascending order
 
 popupTypePhotoCloseButton.addEventListener('click', () => {
-  closePopup(popupTypePhoto);;
+  closePopup(popupTypePhoto);
 });
 
 popupTypeAddCardCloseButton.addEventListener('click', () => {
