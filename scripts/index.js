@@ -36,12 +36,12 @@ const likeButtonActiveClass = 'like-button_active';
 const popupOpenedClass = 'popup_opened';
 
 // document scope
+const addButtonTypeCard = document.querySelector('.add-button_type_card');
+const editButtonTypeProfile = document.querySelector('.edit-button_type_profile');
 const popupTypeAddCard = document.querySelector('.popup_type_add-card');
 const popupTypeEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupTypePhoto = document.querySelector('.popup_type_photo');
 const photoGridList = document.querySelector('.photo-grid__list');
-const addButtonTypeCard = document.querySelector('.add-button_type_card');
-const editButtonTypeProfile = document.querySelector('.edit-button_type_profile');
 const profileAbout = document.querySelector('.profile__about');
 const profileName = document.querySelector('.profile__name');
 
@@ -72,17 +72,17 @@ const inputFieldNameProfileName = popupTypeEditProfileForm.querySelector('.input
 
 // * functions: ascending order
 
-function addCard(container, template, titleQuerySelector, photoQuerySelector, cardTitle, cardLink, prepend) {
+function addCard(cardTitle, cardLink, prepend) {
 
   // create card
-  const card = template.cloneNode(true);
+  const card = cardTemplate.cloneNode(true);
   const deleteButton = card.querySelector(deleteButtonQuerySelector);
   const likeButton = card.querySelector(likeButtonQuerySelector);
-  const photo = card.querySelector(photoQuerySelector);
-  const title = card.querySelector(titleQuerySelector);
-  photo.src = cardLink;
+  const photo = card.querySelector(cardPhotoQuerySelector);
+  const title = card.querySelector(cardTitleQuerySelector);
   photo.alt = cardTitle;
   photo.classList.add(interactiveElementClass);
+  photo.src = cardLink;
   title.textContent = cardTitle;
 
   //insert event listeners
@@ -101,9 +101,9 @@ function addCard(container, template, titleQuerySelector, photoQuerySelector, ca
 
   // insert card
   if (prepend) {
-    container.prepend(card);
+    photoGridList.prepend(card);
   } else {
-    container.append(card);
+    photoGridList.append(card);
   }
 }
 
@@ -113,7 +113,7 @@ function closePopup(popup) {
 
 function handlePopupTypeAddCardFormSubmit(event) {
   event.preventDefault();
-  addCard(photoGridList, cardTemplate, cardTitleQuerySelector, cardPhotoQuerySelector, inputFieldNameCardTitle.value, inputFieldNameCardPhotoLink.value, true);
+  addCard(inputFieldNameCardTitle.value, inputFieldNameCardPhotoLink.value, true);
   popupTypeAddCardForm.reset();
   closePopup(popupTypeAddCard);
 }
@@ -163,5 +163,5 @@ editButtonTypeProfile.addEventListener('click', () => {
 
 // insert initial cards
 initialCards.forEach(item => {
-  addCard(photoGridList, cardTemplate, cardTitleQuerySelector, cardPhotoQuerySelector, item.name, item.link, false);
+  addCard(item.name, item.link, false);
 });
