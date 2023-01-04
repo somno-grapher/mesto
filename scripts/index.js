@@ -1,6 +1,9 @@
 // * vars: scope descending then alphabeticaly ascending
 
 // abstract scope
+const cardPhotoQuerySelector = '.card__photo';
+const cardTitleQuerySelector = '.card__title';
+const deleteButtonQuerySelector = '.delete-button';
 const initialCards = [
   {
     name: 'Архыз',
@@ -27,9 +30,6 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-const cardTitleQuerySelector = '.card__title';
-const cardPhotoQuerySelector = '.card__photo';
-const deleteButtonQuerySelector = '.delete-button';
 const interactiveElementClass = 'mix-interactive-element';
 const likeButtonQuerySelector = '.like-button';
 const likeButtonActiveClass = 'like-button_active';
@@ -38,15 +38,15 @@ const popupOpenedClass = 'popup_opened';
 // document scope
 const addButtonTypeCard = document.querySelector('.add-button_type_card');
 const editButtonTypeProfile = document.querySelector('.edit-button_type_profile');
+const photoGridList = document.querySelector('.photo-grid__list');
 const popupTypeAddCard = document.querySelector('.popup_type_add-card');
 const popupTypeEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupTypePhoto = document.querySelector('.popup_type_photo');
-const photoGridList = document.querySelector('.photo-grid__list');
 const profileAbout = document.querySelector('.profile__about');
 const profileName = document.querySelector('.profile__name');
 
 // photoGridList scope
-// TODO: check .querySelector('.card')
+// .querySelector('.card') is important
 const cardTemplate = photoGridList.querySelector('#card-template').content.querySelector('.card');
 
 // popupTypeAddCard scope
@@ -57,11 +57,6 @@ const popupTypeAddCardForm = popupTypeAddCard.querySelector('.popup__form');
 const inputFieldNameCardTitle = popupTypeAddCardForm.querySelector('.input-field_name_card-title');
 const inputFieldNameCardPhotoLink = popupTypeAddCardForm.querySelector('.input-field_name_card-photo-link');
 
-// popupTypePhoto scope
-const largePhoto = popupTypePhoto.querySelector('.large-photo');
-const popupTypePhotoTitle = popupTypePhoto.querySelector('.popup__title');
-const popupTypePhotoCloseButton = popupTypePhoto.querySelector('.popup__close-button');
-
 // popupTypeEditProfile scope
 const popupTypeEditProfileCloseButton = popupTypeEditProfile.querySelector('.popup__close-button');
 const popupTypeEditProfileForm = popupTypeEditProfile.querySelector('.popup__form');
@@ -69,6 +64,12 @@ const popupTypeEditProfileForm = popupTypeEditProfile.querySelector('.popup__for
 // popupTypeEditProfileForm scope
 const inputFieldNameProfileAbout = popupTypeEditProfileForm.querySelector('.input-field_name_profile-about');
 const inputFieldNameProfileName = popupTypeEditProfileForm.querySelector('.input-field_name_profile-name');
+
+// popupTypePhoto scope
+const largePhoto = popupTypePhoto.querySelector('.large-photo');
+const popupTypePhotoTitle = popupTypePhoto.querySelector('.popup__title');
+const popupTypePhotoCloseButton = popupTypePhoto.querySelector('.popup__close-button');
+
 
 // * functions: ascending order
 
@@ -132,8 +133,20 @@ function openPopup(popup) {
 
 // * event listeners: ascending order
 
-popupTypePhotoCloseButton.addEventListener('click', () => {
-  closePopup(popupTypePhoto);
+addButtonTypeCard.addEventListener('click', () => {
+  openPopup(popupTypeAddCard);
+
+  // optional default values
+  const initialCardsRandomIndex = Math.floor(Math.random() * initialCards.length);
+  inputFieldNameCardTitle.value = initialCards[initialCardsRandomIndex].name;
+  inputFieldNameCardPhotoLink.value = initialCards[initialCardsRandomIndex].link;
+
+});
+
+editButtonTypeProfile.addEventListener('click', () => {
+  openPopup(popupTypeEditProfile);
+  inputFieldNameProfileName.value = profileName.textContent;
+  inputFieldNameProfileAbout.value = profileAbout.textContent;
 });
 
 popupTypeAddCardCloseButton.addEventListener('click', () => {
@@ -148,19 +161,8 @@ popupTypeAddCardForm.addEventListener('submit', handlePopupTypeAddCardFormSubmit
 
 popupTypeEditProfileForm.addEventListener('submit', handlePopupTypeEditProfileFormSubmit);
 
-addButtonTypeCard.addEventListener('click', () => {
-  openPopup(popupTypeAddCard);
-  // optional default values
-  const initialCardsRandomIndex = Math.floor(Math.random() * initialCards.length);
-  inputFieldNameCardTitle.value = initialCards[initialCardsRandomIndex].name;
-  inputFieldNameCardPhotoLink.value = initialCards[initialCardsRandomIndex].link;
-
-});
-
-editButtonTypeProfile.addEventListener('click', () => {
-  openPopup(popupTypeEditProfile);
-  inputFieldNameProfileName.value = profileName.textContent;
-  inputFieldNameProfileAbout.value = profileAbout.textContent;
+popupTypePhotoCloseButton.addEventListener('click', () => {
+  closePopup(popupTypePhoto);
 });
 
 
