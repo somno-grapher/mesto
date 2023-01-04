@@ -1,9 +1,14 @@
-/* vendor */
+/* vendor: pseudo-ascending order */
 
 @import url(../vendor/normalize.css);
 @import url(../vendor/fonts/fonts.css);
 
-/* bem */
+
+/* bem mix: pseudo-ascending order */
+
+
+
+/* bem: pseudo-ascending order */
 
 @import url(../blocks/add-button/add-button.css);
 
