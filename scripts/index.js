@@ -36,8 +36,8 @@ const popupTypePhoto = document.querySelector('.popup_type_photo');
 const photoGridList = document.querySelector('.photo-grid__list');
 const addButtonTypeCard = document.querySelector('.add-button_type_card');
 const editButtonTypeProfile = document.querySelector('.edit-button_type_profile');
-let profileAbout = document.querySelector('.profile__about');
-let profileName = document.querySelector('.profile__name');
+const profileAbout = document.querySelector('.profile__about');
+const profileName = document.querySelector('.profile__name');
 
 // photoGridList scope
 // TODO: check .querySelector('.card')
@@ -48,21 +48,21 @@ const popupTypeAddCardCloseButton = popupTypeAddCard.querySelector('.popup__clos
 const popupTypeAddCardForm = popupTypeAddCard.querySelector('.popup__form');
 
 // popupTypeAddCardForm scope
-let inputFieldNameCardTitle = popupTypeAddCardForm.querySelector('.input-field_name_card-title');
-let inputFieldNameCardPhotoLink = popupTypeAddCardForm.querySelector('.input-field_name_card-photo-link');
+const inputFieldNameCardTitle = popupTypeAddCardForm.querySelector('.input-field_name_card-title');
+const inputFieldNameCardPhotoLink = popupTypeAddCardForm.querySelector('.input-field_name_card-photo-link');
 
 // popupTypePhoto scope
-let largePhoto = popupTypePhoto.querySelector('.large-photo');
-let popupTypePhotoTitle = popupTypePhoto.querySelector('.popup__title');
-let popupTypePhotoCloseButton = popupTypePhoto.querySelector('.popup__close-button');
+const largePhoto = popupTypePhoto.querySelector('.large-photo');
+const popupTypePhotoTitle = popupTypePhoto.querySelector('.popup__title');
+const popupTypePhotoCloseButton = popupTypePhoto.querySelector('.popup__close-button');
 
 // popupTypeEditProfile scope
 const popupTypeEditProfileCloseButton = popupTypeEditProfile.querySelector('.popup__close-button');
 const popupTypeEditProfileForm = popupTypeEditProfile.querySelector('.popup__form');
 
 // popupTypeEditProfileForm scope
-let inputFieldNameProfileAbout = popupTypeEditProfileForm.querySelector('.input-field_name_profile-about');
-let inputFieldNameProfileName = popupTypeEditProfileForm.querySelector('.input-field_name_profile-name');
+const inputFieldNameProfileAbout = popupTypeEditProfileForm.querySelector('.input-field_name_profile-about');
+const inputFieldNameProfileName = popupTypeEditProfileForm.querySelector('.input-field_name_profile-name');
 
 // * functions: ascending order
 
