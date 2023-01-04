@@ -77,8 +77,8 @@ function addCard(cardTitle, cardLink, prepend = true) {
   const item = {
     name: cardTitle,
     link: cardLink
-  }
-  const card = createCard(cardTitle, cardLink);
+  };
+  const card = createCard(item);
   if (prepend) {
     photoGridList.prepend(card);
   } else {
@@ -90,16 +90,16 @@ function closePopup(popup) {
   popup.classList.remove(popupOpenedClass);
 }
 
-function createCard(cardTitle, cardLink) {
+function createCard(item) {
   const card = cardTemplate.cloneNode(true);
   const deleteButton = card.querySelector(deleteButtonQuerySelector);
   const likeButton = card.querySelector(likeButtonQuerySelector);
   const photo = card.querySelector(cardPhotoQuerySelector);
   const title = card.querySelector(cardTitleQuerySelector);
-  photo.alt = cardTitle;
+  photo.alt = item.name;
   photo.classList.add(interactiveElementClass);
-  photo.src = cardLink;
-  title.textContent = cardTitle;
+  photo.src = item.link;
+  title.textContent = item.name;
   deleteButton.addEventListener('click', () => {
     card.remove();
   });
@@ -107,9 +107,9 @@ function createCard(cardTitle, cardLink) {
     event.target.classList.toggle(likeButtonActiveClass);
   });
   photo.addEventListener('click', () => {
-    largePhoto.src = cardLink;
-    largePhoto.alt = cardTitle;
-    popupTypePhotoTitle.textContent = cardTitle;
+    largePhoto.src = item.link;
+    largePhoto.alt = item.name;
+    popupTypePhotoTitle.textContent = item.name;
     openPopup(popupTypePhoto);
   });
   return card;
