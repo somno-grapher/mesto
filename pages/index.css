@@ -4,7 +4,10 @@
 @import url(../vendor/fonts/fonts.css);
 
 
-/* bem: pseudo-ascending order */
+/* BEM mix: pseudo-ascending order */
+@import url(../blocks/mix-interactive-element/mix-interactive-element.css);
+
+/* BEM: pseudo-ascending order */
 
 @import url(../blocks/add-button/add-button.css);
 

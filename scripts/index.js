@@ -76,6 +76,7 @@ function addCard(container, template, titleQuerySelector, photoQuerySelector, ca
   const title = card.querySelector(titleQuerySelector);
   photo.src = cardLink;
   photo.alt = cardTitle;
+  photo.classList.add('mix-interactive-element');
   title.textContent = cardTitle;
 
   //insert event listeners
