@@ -75,6 +75,7 @@ function addCard(container, template, titleQuerySelector, photoQuerySelector, ca
   let photo = card.querySelector(photoQuerySelector);
   let title = card.querySelector(titleQuerySelector);
   photo.src = cardLink;
+  photo.alt = cardTitle;
   title.textContent = cardTitle;
 
   //insert event listeners
