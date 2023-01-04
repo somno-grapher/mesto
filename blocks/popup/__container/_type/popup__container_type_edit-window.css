@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 917px) {
-  .popup__container__type_edit-window {
+  .popup__container_type_edit-window {
     width: 282px;
     padding: 25px 22px;
   }
