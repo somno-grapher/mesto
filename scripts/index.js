@@ -72,7 +72,7 @@ const inputFieldNameProfileName = popupTypeEditProfileForm.querySelector('.input
 
 // * functions: ascending order
 
-function addCard(cardTitle, cardLink, prepend) {
+function addCard(cardTitle, cardLink, prepend = true) {
 
   // create card
   const card = cardTemplate.cloneNode(true);
@@ -113,7 +113,7 @@ function closePopup(popup) {
 
 function handlePopupTypeAddCardFormSubmit(event) {
   event.preventDefault();
-  addCard(inputFieldNameCardTitle.value, inputFieldNameCardPhotoLink.value, true);
+  addCard(inputFieldNameCardTitle.value, inputFieldNameCardPhotoLink.value);
   popupTypeAddCardForm.reset();
   closePopup(popupTypeAddCard);
 }
@@ -150,6 +150,11 @@ popupTypeEditProfileForm.addEventListener('submit', handlePopupTypeEditProfileFo
 
 addButtonTypeCard.addEventListener('click', () => {
   openPopup(popupTypeAddCard);
+  // optional default values
+  const initialCardsRandomIndex = Math.floor(Math.random() * initialCards.length);
+  inputFieldNameCardTitle.value = initialCards[initialCardsRandomIndex].name;
+  inputFieldNameCardPhotoLink.value = initialCards[initialCardsRandomIndex].link;
+
 });
 
 editButtonTypeProfile.addEventListener('click', () => {
