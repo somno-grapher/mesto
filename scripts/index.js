@@ -33,10 +33,12 @@ const initialCards = [
 const interactiveElementClass = 'mix-interactive-element';
 const likeButtonQuerySelector = '.like-button';
 const likeButtonActiveClass = 'like-button_active';
+const popupQuerySelector = '.popup';
 const popupOpenedClass = 'popup_opened';
 
 // document scope
 const addButtonTypeCard = document.querySelector('.add-button_type_card');
+const closeButtons = document.querySelectorAll('.popup__close-button');
 const editButtonTypeProfile = document.querySelector('.edit-button_type_profile');
 const photoGridList = document.querySelector('.photo-grid__list');
 const popupTypeAddCard = document.querySelector('.popup_type_add-card');
@@ -50,7 +52,6 @@ const profileName = document.querySelector('.profile__name');
 const cardTemplate = photoGridList.querySelector('#card-template').content.querySelector('.card');
 
 // popupTypeAddCard scope
-const popupTypeAddCardCloseButton = popupTypeAddCard.querySelector('.popup__close-button');
 const popupTypeAddCardForm = popupTypeAddCard.querySelector('.popup__form');
 
 // popupTypeAddCardForm scope
@@ -58,7 +59,6 @@ const inputFieldNameCardTitle = popupTypeAddCardForm.querySelector('.input-field
 const inputFieldNameCardPhotoLink = popupTypeAddCardForm.querySelector('.input-field_name_card-photo-link');
 
 // popupTypeEditProfile scope
-const popupTypeEditProfileCloseButton = popupTypeEditProfile.querySelector('.popup__close-button');
 const popupTypeEditProfileForm = popupTypeEditProfile.querySelector('.popup__form');
 
 // popupTypeEditProfileForm scope
@@ -68,7 +68,6 @@ const inputFieldNameProfileName = popupTypeEditProfileForm.querySelector('.input
 // popupTypePhoto scope
 const largePhoto = popupTypePhoto.querySelector('.large-photo');
 const popupTypePhotoTitle = popupTypePhoto.querySelector('.popup__title');
-const popupTypePhotoCloseButton = popupTypePhoto.querySelector('.popup__close-button');
 
 
 // * functions: ascending order
@@ -140,27 +139,20 @@ addButtonTypeCard.addEventListener('click', () => {
   openPopup(popupTypeAddCard);
 });
 
+closeButtons.forEach((button) => {
+  const popup = button.closest(popupQuerySelector);
+  button.addEventListener('click', () => closePopup(popup));
+});
+
 editButtonTypeProfile.addEventListener('click', () => {
   openPopup(popupTypeEditProfile);
   inputFieldNameProfileName.value = profileName.textContent;
   inputFieldNameProfileAbout.value = profileAbout.textContent;
 });
 
-popupTypeAddCardCloseButton.addEventListener('click', () => {
-  closePopup(popupTypeAddCard);
-});
-
-popupTypeEditProfileCloseButton.addEventListener('click', () => {
-  closePopup(popupTypeEditProfile);
-});
-
 popupTypeAddCardForm.addEventListener('submit', handlePopupTypeAddCardFormSubmit);
 
 popupTypeEditProfileForm.addEventListener('submit', handlePopupTypeEditProfileFormSubmit);
-
-popupTypePhotoCloseButton.addEventListener('click', () => {
-  closePopup(popupTypePhoto);
-});
 
 
 // * main code
