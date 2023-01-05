@@ -38,6 +38,7 @@ const popupOpenedClass = 'popup_opened';
 
 // document scope
 const addButtonTypeCard = document.querySelector('.add-button_type_card');
+const cardForm = document.forms['card-form'];
 const closeButtons = document.querySelectorAll('.popup__close-button');
 const editButtonTypeProfile = document.querySelector('.edit-button_type_profile');
 const photoGridList = document.querySelector('.photo-grid__list');
@@ -45,25 +46,20 @@ const popupTypeAddCard = document.querySelector('.popup_type_add-card');
 const popupTypeEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupTypePhoto = document.querySelector('.popup_type_photo');
 const profileAbout = document.querySelector('.profile__about');
+const profileForm = document.forms['profile-form'];
 const profileName = document.querySelector('.profile__name');
 
 // photoGridList scope
 // .querySelector('.card') is important
 const cardTemplate = photoGridList.querySelector('#card-template').content.querySelector('.card');
 
-// popupTypeAddCard scope
-const popupTypeAddCardForm = popupTypeAddCard.querySelector('.popup__form');
+// cardForm scope
+const inputFieldNameCardTitle = cardForm.querySelector('.input-field_name_card-title');
+const inputFieldNameCardPhotoLink = cardForm.querySelector('.input-field_name_card-photo-link');
 
-// popupTypeAddCardForm scope
-const inputFieldNameCardTitle = popupTypeAddCardForm.querySelector('.input-field_name_card-title');
-const inputFieldNameCardPhotoLink = popupTypeAddCardForm.querySelector('.input-field_name_card-photo-link');
-
-// popupTypeEditProfile scope
-const popupTypeEditProfileForm = popupTypeEditProfile.querySelector('.popup__form');
-
-// popupTypeEditProfileForm scope
-const inputFieldNameProfileAbout = popupTypeEditProfileForm.querySelector('.input-field_name_profile-about');
-const inputFieldNameProfileName = popupTypeEditProfileForm.querySelector('.input-field_name_profile-name');
+// profileForm scope
+const inputFieldNameProfileAbout = profileForm.querySelector('.input-field_name_profile-about');
+const inputFieldNameProfileName = profileForm.querySelector('.input-field_name_profile-name');
 
 // popupTypePhoto scope
 const largePhoto = popupTypePhoto.querySelector('.large-photo');
@@ -117,7 +113,7 @@ function createCard(item) {
 function handlePopupTypeAddCardFormSubmit(event) {
   event.preventDefault();
   addCard(inputFieldNameCardTitle.value, inputFieldNameCardPhotoLink.value);
-  popupTypeAddCardForm.reset();
+  cardForm.reset();
   closePopup(popupTypeAddCard);
 }
 
@@ -150,9 +146,9 @@ editButtonTypeProfile.addEventListener('click', () => {
   inputFieldNameProfileAbout.value = profileAbout.textContent;
 });
 
-popupTypeAddCardForm.addEventListener('submit', handlePopupTypeAddCardFormSubmit);
+cardForm.addEventListener('submit', handlePopupTypeAddCardFormSubmit);
 
-popupTypeEditProfileForm.addEventListener('submit', handlePopupTypeEditProfileFormSubmit);
+profileForm.addEventListener('submit', handlePopupTypeEditProfileFormSubmit);
 
 
 // * main code
