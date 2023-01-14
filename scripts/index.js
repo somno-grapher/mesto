@@ -1,9 +1,9 @@
 // * vars: scope descending then alphabeticaly ascending
 
-// abstract scope
-const cardPhotoQuerySelector = '.card__photo';
-const cardTitleQuerySelector = '.card__title';
-const deleteButtonQuerySelector = '.delete-button';
+// abstract scopecardTitleSelector
+const cardPhotoSelector = '.card__photo';
+const cardTitleSelector = '.card__title';
+const deleteButtonSelector = '.delete-button';
 const initialCards = [
   {
     name: 'Архыз',
@@ -31,50 +31,50 @@ const initialCards = [
   }
 ];
 const interactiveElementClass = 'mix-interactive-element';
-const likeButtonQuerySelector = '.like-button';
-const likeButtonActiveClass = 'like-button_active';
-const popupQuerySelector = '.popup';
+const likeButtonLikedClass = 'like-button_liked';
+const likeButtonSelector = '.like-button';
 const popupOpenedClass = 'popup_opened';
+const popupSelector = '.popup';
 
 // document scope
-const addButtonTypeCard = document.querySelector('.add-button_type_card');
-const cardForm = document.forms['card-form'];
+const addCardButton = document.querySelector('.add-button_type_card');
+const addCardForm = document.forms['add-card-form'];
+const addCardPopup = document.querySelector('.popup_type_add-card');
 const closeButtons = document.querySelectorAll('.popup__close-button');
-const editButtonTypeProfile = document.querySelector('.edit-button_type_profile');
-const photoGridList = document.querySelector('.photo-grid__list');
-const popupTypeAddCard = document.querySelector('.popup_type_add-card');
-const popupTypeEditProfile = document.querySelector('.popup_type_edit-profile');
-const popupTypePhoto = document.querySelector('.popup_type_photo');
+const editProfileButton = document.querySelector('.edit-button_type_profile');
+const editProfileForm = document.forms['edit-profile-form'];
+const editProfilePopup = document.querySelector('.popup_type_edit-profile');
 const profileAbout = document.querySelector('.profile__about');
-const profileForm = document.forms['profile-form'];
+const photoGridList = document.querySelector('.photo-grid__list');
 const profileName = document.querySelector('.profile__name');
+const showPhotoPopup = document.querySelector('.popup_type_show-photo');
 
 // photoGridList scope
 // .querySelector('.card') is important
 const cardTemplate = photoGridList.querySelector('#card-template').content.querySelector('.card');
 
-// cardForm scope
-const inputFieldNameCardTitle = cardForm.querySelector('.input-field_name_card-title');
-const inputFieldNameCardPhotoLink = cardForm.querySelector('.input-field_name_card-photo-link');
+// addCardForm scope
+const cardTitleInput = addCardForm.querySelector('.input-field_name_card-title');
+const cardPhotoLinkInput = addCardForm.querySelector('.input-field_name_card-photo-link');
 
-// profileForm scope
-const inputFieldNameProfileAbout = profileForm.querySelector('.input-field_name_profile-about');
-const inputFieldNameProfileName = profileForm.querySelector('.input-field_name_profile-name');
+// editProfileForm scope
+const profileAboutInput = editProfileForm.querySelector('.input-field_name_profile-about');
+const profileNameInput = editProfileForm.querySelector('.input-field_name_profile-name');
 
-// popupTypePhoto scope
-const largePhoto = popupTypePhoto.querySelector('.large-photo');
-const popupTypePhotoTitle = popupTypePhoto.querySelector('.popup__title');
+// showPhotoPopup scope
+const fullPhoto = showPhotoPopup.querySelector('.full-photo');
+const fullPhotoTitle = showPhotoPopup.querySelector('.popup__title');
 
 
 // * functions: ascending order
 
-function addCard(cardTitle, cardLink, prepend = true) {
+function addCard(cardTitle, cardLink, isPrepend = true) {
   const item = {
     name: cardTitle,
     link: cardLink
   };
   const card = createCard(item);
-  if (prepend) {
+  if (isPrepend) {
     photoGridList.prepend(card);
   } else {
     photoGridList.append(card);
@@ -87,10 +87,10 @@ function closePopup(popup) {
 
 function createCard(item) {
   const card = cardTemplate.cloneNode(true);
-  const deleteButton = card.querySelector(deleteButtonQuerySelector);
-  const likeButton = card.querySelector(likeButtonQuerySelector);
-  const photo = card.querySelector(cardPhotoQuerySelector);
-  const title = card.querySelector(cardTitleQuerySelector);
+  const deleteButton = card.querySelector(deleteButtonSelector);
+  const likeButton = card.querySelector(likeButtonSelector);
+  const photo = card.querySelector(cardPhotoSelector);
+  const title = card.querySelector(cardTitleSelector);
   photo.alt = item.name;
   photo.classList.add(interactiveElementClass);
   photo.src = item.link;
@@ -99,29 +99,29 @@ function createCard(item) {
     card.remove();
   });
   likeButton.addEventListener('click', (event) => {
-    event.target.classList.toggle(likeButtonActiveClass);
+    event.target.classList.toggle(likeButtonLikedClass);
   });
   photo.addEventListener('click', () => {
-    largePhoto.src = item.link;
-    largePhoto.alt = item.name;
-    popupTypePhotoTitle.textContent = item.name;
-    openPopup(popupTypePhoto);
+    fullPhoto.src = item.link;
+    fullPhoto.alt = item.name;
+    fullPhotoTitle.textContent = item.name;
+    openPopup(showPhotoPopup);
   });
   return card;
 }
 
-function handlePopupTypeAddCardFormSubmit(event) {
+function submitAddCardForm(event) {
   event.preventDefault();
-  addCard(inputFieldNameCardTitle.value, inputFieldNameCardPhotoLink.value);
-  cardForm.reset();
-  closePopup(popupTypeAddCard);
+  addCard(cardTitleInput.value, cardPhotoLinkInput.value);
+  addCardForm.reset();
+  closePopup(addCardPopup);
 }
 
-function handlePopupTypeEditProfileFormSubmit(event) {
+function submitEditProfileForm(event) {
   event.preventDefault();
-  profileName.textContent = inputFieldNameProfileName.value;
-  profileAbout.textContent = inputFieldNameProfileAbout.value;
-  closePopup(popupTypeEditProfile);
+  profileName.textContent = profileNameInput.value;
+  profileAbout.textContent = profileAboutInput.value;
+  closePopup(editProfilePopup);
 }
 
 function openPopup(popup) {
@@ -131,24 +131,24 @@ function openPopup(popup) {
 
 // * event listeners: ascending order
 
-addButtonTypeCard.addEventListener('click', () => {
-  openPopup(popupTypeAddCard);
+addCardButton.addEventListener('click', () => {
+  openPopup(addCardPopup);
 });
 
 closeButtons.forEach((button) => {
-  const popup = button.closest(popupQuerySelector);
+  const popup = button.closest(popupSelector);
   button.addEventListener('click', () => closePopup(popup));
 });
 
-editButtonTypeProfile.addEventListener('click', () => {
-  openPopup(popupTypeEditProfile);
-  inputFieldNameProfileName.value = profileName.textContent;
-  inputFieldNameProfileAbout.value = profileAbout.textContent;
+editProfileButton.addEventListener('click', () => {
+  openPopup(editProfilePopup);
+  profileNameInput.value = profileName.textContent;
+  profileAboutInput.value = profileAbout.textContent;
 });
 
-cardForm.addEventListener('submit', handlePopupTypeAddCardFormSubmit);
+addCardForm.addEventListener('submit', submitAddCardForm);
 
-profileForm.addEventListener('submit', handlePopupTypeEditProfileFormSubmit);
+editProfileForm.addEventListener('submit', submitEditProfileForm);
 
 
 // * main code
