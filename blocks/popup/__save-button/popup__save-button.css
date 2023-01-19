@@ -1,6 +1,5 @@
 .popup__save-button {
   transition: .3s;
-  /* margin-top: 48px; */
   margin-top: 18px;
 }
 
@@ -10,7 +9,6 @@
 
 @media screen and (max-width: 917px) {
   .popup__save-button {
-    /* margin-top: 45px; */
     margin-top: 15px;
   }
 }
