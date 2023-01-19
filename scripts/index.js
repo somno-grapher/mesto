@@ -68,13 +68,13 @@ const fullPhotoTitle = showPhotoPopup.querySelector('.popup__title');
 
 // * functions: ascending order
 
-function addCard(cardTitle, cardLink, isPrepend = true) {
+function addCard(cardTitle, cardLink, isPrepending = true) {
   const item = {
     name: cardTitle,
     link: cardLink
   };
   const card = createCard(item);
-  if (isPrepend) {
+  if (isPrepending) {
     photoGridList.prepend(card);
   } else {
     photoGridList.append(card);
