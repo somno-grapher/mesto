@@ -22,6 +22,15 @@ function isValid(formElement, inputElement, inputErrorClass, errorClass) {
   }
 }
 
+function setEventListeners(formElement, inputErrorClass, errorClass, inputSelector) {
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      isValid(formElement, inputElement, inputErrorClass, errorClass)
+    });
+  });
+};
+
 function showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass) {
   const errorElement = formElement.querySelector(getErrorClassByInputId(inputElement));
   inputElement.classList.add(inputErrorClass);
@@ -29,15 +38,17 @@ function showInputError(formElement, inputElement, errorMessage, inputErrorClass
   errorElement.classList.add(errorClass);
 }
 
-showInputError(editProfileForm, profileNameInput, profileNameInput.validationMessage, 'popup__input_type_error', 'popup__error_visible');
+// showInputError(editProfileForm, profileNameInput, profileNameInput.validationMessage, 'popup__input_type_error', 'popup__error_visible');
 
-hideInputError(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
+// hideInputError(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
 
-isValid(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
+// isValid(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
 
-profileNameInput.addEventListener('input', () => {
-  isValid(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
-})
+// profileNameInput.addEventListener('input', () => {
+//   isValid(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
+// })
+
+setEventListeners(editProfileForm, 'popup__input_type_error', 'popup__error_visible', '.popup__input');
 
 // enableValidation({
 //   formSelector: '.popup__form',
