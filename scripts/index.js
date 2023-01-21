@@ -121,6 +121,11 @@ function handleEscUp(event) {
 function openPopup(popup) {
   popup.classList.add(popupOpenedClass);
   document.addEventListener('keyup', handleEscUp);
+  popup.addEventListener('click', (event) => {
+    if (event.currentTarget === event.target) {
+      closePopup(popup);
+    }
+  })
 }
 
 function submitAddCardForm(event) {
