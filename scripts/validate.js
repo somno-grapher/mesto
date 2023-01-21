@@ -1,6 +1,9 @@
-// function enableValidation(settings) {
-//   showInputError(editProfileForm, profileAboutInput, profileAboutInput.validationMessage);
-// }
+function enableValidation (settings) {
+  const formList = Array.from(document.querySelectorAll(settings.formSelector));
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, settings.inputErrorClass, settings.errorClass, settings.inputSelector);
+  });
+};
 
 function getErrorClassByInputId(inputElement) {
   return '.' + inputElement.id + '-error';
@@ -48,13 +51,13 @@ function showInputError(formElement, inputElement, errorMessage, inputErrorClass
 //   isValid(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
 // })
 
-setEventListeners(editProfileForm, 'popup__input_type_error', 'popup__error_visible', '.popup__input');
+// setEventListeners(editProfileForm, 'popup__input_type_error', 'popup__error_visible', '.popup__input');
 
-// enableValidation({
-//   formSelector: '.popup__form',
-//   inputSelector: '.popup__input',
-//   submitButtonSelector: '.popup__save-button',
-//   inactiveButtonClass: 'popup__save-button_disabled',
-//   inputErrorClass: 'popup__input_type_error',
-//   errorClass: 'popup__error_visible'
-// });
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
