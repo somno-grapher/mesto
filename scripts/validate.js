@@ -1,4 +1,6 @@
-function enableValidation (settings) {
+// * functions: ascending order
+
+function enableValidation(settings) {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
     setEventListeners(formElement, settings.inputErrorClass, settings.errorClass, settings.inputSelector);
@@ -41,17 +43,8 @@ function showInputError(formElement, inputElement, errorMessage, inputErrorClass
   errorElement.classList.add(errorClass);
 }
 
-// showInputError(editProfileForm, profileNameInput, profileNameInput.validationMessage, 'popup__input_type_error', 'popup__error_visible');
 
-// hideInputError(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
-
-// isValid(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
-
-// profileNameInput.addEventListener('input', () => {
-//   isValid(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
-// })
-
-// setEventListeners(editProfileForm, 'popup__input_type_error', 'popup__error_visible', '.popup__input');
+// * main code
 
 enableValidation({
   formSelector: '.popup__form',

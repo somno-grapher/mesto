@@ -96,14 +96,26 @@
       <h2 class="popup__title popup__title_type_edit-window">Новое место</h2>
       <form name="add-card-form"
             class="popup__form">
-        <input name="card-title"
-               type="text"
-               placeholder="Введите название"
-               class="input-field input-field_name_card-title">
-        <input name="card-photo-link"
-               type="url"
-               placeholder="Введите ссылку"
-               class="input-field input-field_name_card-photo-link">
+        <label class="popup__label">
+          <input name="card-title"
+                 type="text"
+                 placeholder="Название"
+                 id="card-title-input"
+                 class="input-field input-field_name_card-title popup__input"
+                 minlength="2"
+                 maxlength="30"
+                 required>
+          <span class="card-title-input-error popup__error"></span>
+        </label>
+        <label class="popup__label">
+          <input name="card-photo-link"
+                 type="url"
+                 placeholder="Ссылка"
+                 id="card-link-input"
+                 class="input-field input-field_name_card-photo-link popup__input"
+                 required>
+        </label>
+        <span class="card-link-input-error popup__error"></span>
         <button type="submit"
                 class="save-button popup__save-button">Сохранить</button>
       </form>
