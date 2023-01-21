@@ -24,7 +24,7 @@ function hideInputError(formElement, inputElement, inputErrorClass, errorClass) 
   errorElement.classList.remove(errorClass);
 }
 
-function isValid(formElement, inputElement, inputErrorClass, errorClass) {
+function isInputValid(formElement, inputElement, inputErrorClass, errorClass) {
   const errorMessage = inputElement.validationMessage;
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass);
@@ -39,7 +39,7 @@ function setEventListeners(formElement, inputErrorClass, errorClass, inputSelect
   toggleButtonState(inputList, buttonElement, inactiveButtonClass);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement, inputErrorClass, errorClass);
+      isInputValid(formElement, inputElement, inputErrorClass, errorClass);
       toggleButtonState(inputList, buttonElement, inactiveButtonClass);
     });
   });
@@ -55,8 +55,10 @@ function showInputError(formElement, inputElement, errorMessage, inputErrorClass
 function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.type = 'button';
   } else {
     buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.type = 'submit';
   }
 };
 
