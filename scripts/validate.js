@@ -35,6 +35,9 @@ hideInputError(editProfileForm, profileNameInput, 'popup__input_type_error', 'po
 
 isValid(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
 
+profileNameInput.addEventListener('input', () => {
+  isValid(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
+})
 
 // enableValidation({
 //   formSelector: '.popup__form',
