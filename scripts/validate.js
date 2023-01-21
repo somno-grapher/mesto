@@ -13,6 +13,15 @@ function hideInputError(formElement, inputElement, inputErrorClass, errorClass) 
   errorElement.classList.remove(errorClass);
 }
 
+function isValid(formElement, inputElement, inputErrorClass, errorClass) {
+  const errorMessage = inputElement.validationMessage;
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass);
+  } else {
+    hideInputError(formElement, inputElement, inputErrorClass, errorClass);
+  }
+}
+
 function showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass) {
   const errorElement = formElement.querySelector(getErrorClassByInputId(inputElement));
   inputElement.classList.add(inputErrorClass);
@@ -23,6 +32,9 @@ function showInputError(formElement, inputElement, errorMessage, inputErrorClass
 showInputError(editProfileForm, profileNameInput, profileNameInput.validationMessage, 'popup__input_type_error', 'popup__error_visible');
 
 hideInputError(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
+
+isValid(editProfileForm, profileNameInput, 'popup__input_type_error', 'popup__error_visible');
+
 
 // enableValidation({
 //   formSelector: '.popup__form',
