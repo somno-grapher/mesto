@@ -53,7 +53,8 @@
     </footer>
   </div>
 
-  <div class="popup popup_type_edit-profile">
+  <!-- ! remove popup_opened -->
+  <div class="popup popup_type_edit-profile popup_opened">
     <div class="popup__container popup__container_type_edit-window">
       <button type="button"
               class="close-button popup__close-button"></button>
@@ -70,18 +71,18 @@
                  minlength="2"
                  maxlength="40"
                  required>
-          <span class="profile-name-input-error"></span>
+          <span class="profile-name-input-error popup__error"></span>
         </label>
         <label class="popup__label">
           <input name="profile-about"
                  type="text"
                  placeholder="О себе"
+                 id="profile-about-input"
                  class="input-field input-field_name_profile-about popup__input"
                  minlength="2"
                  maxlength="200"
                  required>
-          <!-- ! remove class="popup__error_visible" -->
-          <span class="popup__error_visible">dddd</span>
+          <span class="profile-about-input-error popup__error"></span>
         </label>
         <button type="submit"
                 class="save-button popup__save-button">Сохранить</button>
