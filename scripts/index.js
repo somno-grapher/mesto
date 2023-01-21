@@ -50,7 +50,7 @@ const profileName = document.querySelector('.profile__name');
 const showPhotoPopup = document.querySelector('.popup_type_show-photo');
 
 // photoGridList scope
-// .querySelector('.card') is important
+// ! .querySelector('.card') is important
 const cardTemplate = photoGridList.querySelector('#card-template').content.querySelector('.card');
 
 // addCardForm scope
