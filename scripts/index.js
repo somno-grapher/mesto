@@ -33,6 +33,7 @@ const initialCards = [
 const interactiveElementClass = 'mix-interactive-element';
 const likeButtonLikedClass = 'like-button_liked';
 const likeButtonSelector = '.like-button';
+const popupFormSelector = '.popup__form';
 const popupOpenedClass = 'popup_opened';
 const popupSelector = '.popup';
 
@@ -83,6 +84,7 @@ function addCard(cardTitle, cardLink, isPrepending = true) {
 
 function closePopup(popup) {
   popup.classList.remove(popupOpenedClass);
+  popup.querySelector(popupFormSelector).reset();
 }
 
 function createCard(item) {
@@ -125,28 +127,29 @@ function openPopup(popup) {
     if (event.currentTarget === event.target) {
       closePopup(popup);
     }
-  })
-}
+  });
+};
 
 function submitAddCardForm(event) {
   event.preventDefault();
   addCard(cardTitleInput.value, cardPhotoLinkInput.value);
   addCardForm.reset();
   closePopup(addCardPopup);
-}
+};
 
 function submitEditProfileForm(event) {
   event.preventDefault();
   profileName.textContent = profileNameInput.value;
   profileAbout.textContent = profileAboutInput.value;
   closePopup(editProfilePopup);
-}
+};
 
 
 // * event listeners: ascending order
 
 addCardButton.addEventListener('click', () => {
   openPopup(addCardPopup);
+  validateFormOnOpening(addCardForm, validationSettings.inputErrorClass, validationSettings.errorClass, validationSettings.inputSelector, validationSettings.saveButtonSelector, validationSettings.inactiveButtonClass);
 });
 
 closeButtons.forEach((button) => {
@@ -158,6 +161,7 @@ editProfileButton.addEventListener('click', () => {
   openPopup(editProfilePopup);
   profileNameInput.value = profileName.textContent;
   profileAboutInput.value = profileAbout.textContent;
+  validateFormOnOpening(editProfileForm, validationSettings.inputErrorClass, validationSettings.errorClass, validationSettings.inputSelector, validationSettings.saveButtonSelector, validationSettings.inactiveButtonClass);
 });
 
 addCardForm.addEventListener('submit', submitAddCardForm);

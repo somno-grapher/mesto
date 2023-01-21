@@ -1,3 +1,14 @@
+// * vars: alphabeticaly ascending
+
+const validationSettings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  saveButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
 // * functions: ascending order
 
 function enableValidation(settings) {
@@ -62,14 +73,16 @@ function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
   }
 };
 
+function validateFormOnOpening(formElement, inputErrorClass, errorClass, inputSelector, saveButtonSelector, inactiveButtonClass) {
+  const buttonElement = formElement.querySelector(saveButtonSelector);
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement, inputErrorClass, errorClass);
+  });
+  toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+};
+
 
 // * main code
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  saveButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+enableValidation(validationSettings);
