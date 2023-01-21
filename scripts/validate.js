@@ -43,10 +43,6 @@ function setEventListeners(formElement, inputErrorClass, errorClass, inputSelect
       toggleButtonState(inputList, buttonElement, inactiveButtonClass);
     });
   });
-  // !
-  // formElement.addEventListener('submit', () => {
-  //   toggleButtonState(inputList, buttonElement, inactiveButtonClass);
-  // });
 };
 
 function showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass) {

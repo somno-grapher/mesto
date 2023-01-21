@@ -110,6 +110,19 @@ function createCard(item) {
   return card;
 }
 
+function handleEscUp(event) {
+  if (event.key === 'Escape') {
+    const activePopup = document.querySelector('.' + popupOpenedClass);
+    document.removeEventListener('keyup', handleEscUp);
+    closePopup(activePopup);
+  };
+};
+
+function openPopup(popup) {
+  popup.classList.add(popupOpenedClass);
+  document.addEventListener('keyup', handleEscUp);
+}
+
 function submitAddCardForm(event) {
   event.preventDefault();
   addCard(cardTitleInput.value, cardPhotoLinkInput.value);
@@ -122,10 +135,6 @@ function submitEditProfileForm(event) {
   profileName.textContent = profileNameInput.value;
   profileAbout.textContent = profileAboutInput.value;
   closePopup(editProfilePopup);
-}
-
-function openPopup(popup) {
-  popup.classList.add(popupOpenedClass);
 }
 
 
