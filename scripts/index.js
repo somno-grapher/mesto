@@ -124,12 +124,23 @@ function handleEscUp(event) {
 function openPopup(popup) {
   popup.classList.add(popupOpenedClass);
   document.addEventListener('keyup', handleEscUp);
-  popup.addEventListener('click', (event) => {
-    if (event.currentTarget === event.target) {
-      closePopup(popup);
-    }
-  });
+  // popup.addEventListener('click', (event) => {
+  //   if (event.currentTarget === event.target) {
+  //     closePopup(popup);
+  //   }
+  // });
 };
+
+function setOverlayClickListeners(popupSelector) {
+  const popupList = Array.from(document.querySelectorAll(popupSelector));
+  popupList.forEach((popup) => {
+    popup.addEventListener('click', (event) => {
+      if (event.currentTarget === event.target) {
+        closePopup(popup);
+      }
+    });
+  });
+}
 
 function submitAddCardForm(event) {
   event.preventDefault();
@@ -168,6 +179,8 @@ editProfileButton.addEventListener('click', () => {
 addCardForm.addEventListener('submit', submitAddCardForm);
 
 editProfileForm.addEventListener('submit', submitEditProfileForm);
+
+setOverlayClickListeners(popupSelector);
 
 
 // * main code
