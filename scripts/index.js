@@ -1,6 +1,6 @@
 // * vars: scope descending then alphabeticaly ascending
 
-// abstract scopecardTitleSelector
+// abstract scope
 const cardPhotoSelector = '.card__photo';
 const cardTitleSelector = '.card__title';
 const deleteButtonSelector = '.delete-button';

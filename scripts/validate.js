@@ -1,4 +1,4 @@
-// * vars: alphabeticaly ascending
+// * vars: ascending order
 
 const validationSettings = {
   formSelector: '.popup__form',
