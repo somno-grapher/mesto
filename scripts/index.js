@@ -4,6 +4,7 @@
 const cardPhotoSelector = '.card__photo';
 const cardTitleSelector = '.card__title';
 const deleteButtonSelector = '.delete-button';
+const escKey = 'Escape';
 const initialCards = [
   {
     name: 'Архыз',
@@ -113,7 +114,7 @@ function createCard(item) {
 }
 
 function handleEscUp(event) {
-  if (event.key === 'Escape') {
+  if (event.key === escKey) {
     const activePopup = document.querySelector('.' + popupOpenedClass);
     document.removeEventListener('keyup', handleEscUp);
     closePopup(activePopup);
