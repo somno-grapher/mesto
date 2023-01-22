@@ -124,14 +124,9 @@ function handleEscUp(event) {
 function openPopup(popup) {
   popup.classList.add(popupOpenedClass);
   document.addEventListener('keyup', handleEscUp);
-  // popup.addEventListener('click', (event) => {
-  //   if (event.currentTarget === event.target) {
-  //     closePopup(popup);
-  //   }
-  // });
 };
 
-function setOverlayClickListeners(popupSelector) {
+function addOverlayClickListeners(popupSelector) {
   const popupList = Array.from(document.querySelectorAll(popupSelector));
   popupList.forEach((popup) => {
     popup.addEventListener('click', (event) => {
@@ -166,6 +161,8 @@ addCardButton.addEventListener('click', () => {
 
 addCardForm.addEventListener('submit', submitAddCardForm);
 
+addOverlayClickListeners(popupSelector);
+
 closeButtons.forEach((button) => {
   const popup = button.closest(popupSelector);
   button.addEventListener('click', () => closePopup(popup));
@@ -179,8 +176,6 @@ editProfileButton.addEventListener('click', () => {
 });
 
 editProfileForm.addEventListener('submit', submitEditProfileForm);
-
-setOverlayClickListeners(popupSelector);
 
 
 // * main code

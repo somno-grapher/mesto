@@ -9,12 +9,25 @@ const validationSettings = {
   errorClass: 'popup__error_visible'
 }
 
+
 // * functions: ascending order
+
+function addInputListeners(formElement, inputErrorClass, errorClass, inputSelector, saveButtonSelector, inactiveButtonClass) {
+  const buttonElement = formElement.querySelector(saveButtonSelector);
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+  toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      isInputValid(formElement, inputElement, inputErrorClass, errorClass);
+      toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+    });
+  });
+};
 
 function enableValidation(settings) {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
-    setInputListeners(formElement, settings.inputErrorClass, settings.errorClass, settings.inputSelector, settings.saveButtonSelector, settings.inactiveButtonClass);
+    addInputListeners(formElement, settings.inputErrorClass, settings.errorClass, settings.inputSelector, settings.saveButtonSelector, settings.inactiveButtonClass);
   });
 };
 
@@ -43,18 +56,6 @@ function isInputValid(formElement, inputElement, inputErrorClass, errorClass) {
     hideInputError(formElement, inputElement, inputErrorClass, errorClass);
   }
 }
-
-function setInputListeners(formElement, inputErrorClass, errorClass, inputSelector, saveButtonSelector, inactiveButtonClass) {
-  const buttonElement = formElement.querySelector(saveButtonSelector);
-  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-  toggleButtonState(inputList, buttonElement, inactiveButtonClass);
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', () => {
-      isInputValid(formElement, inputElement, inputErrorClass, errorClass);
-      toggleButtonState(inputList, buttonElement, inactiveButtonClass);
-    });
-  });
-};
 
 function showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass) {
   const errorElement = formElement.querySelector(getErrorClassByInputId(inputElement));
