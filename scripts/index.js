@@ -164,6 +164,8 @@ addCardButton.addEventListener('click', () => {
   validateFormOnOpening(addCardForm, validationSettings.inputErrorClass, validationSettings.errorClass, validationSettings.inputSelector, validationSettings.saveButtonSelector, validationSettings.inactiveButtonClass);
 });
 
+addCardForm.addEventListener('submit', submitAddCardForm);
+
 closeButtons.forEach((button) => {
   const popup = button.closest(popupSelector);
   button.addEventListener('click', () => closePopup(popup));
@@ -175,8 +177,6 @@ editProfileButton.addEventListener('click', () => {
   profileAboutInput.value = profileAbout.textContent;
   validateFormOnOpening(editProfileForm, validationSettings.inputErrorClass, validationSettings.errorClass, validationSettings.inputSelector, validationSettings.saveButtonSelector, validationSettings.inactiveButtonClass);
 });
-
-addCardForm.addEventListener('submit', submitAddCardForm);
 
 editProfileForm.addEventListener('submit', submitEditProfileForm);
 

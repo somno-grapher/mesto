@@ -14,7 +14,7 @@ const validationSettings = {
 function enableValidation(settings) {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
-    setEventListeners(formElement, settings.inputErrorClass, settings.errorClass, settings.inputSelector, settings.saveButtonSelector, settings.inactiveButtonClass);
+    setInputListeners(formElement, settings.inputErrorClass, settings.errorClass, settings.inputSelector, settings.saveButtonSelector, settings.inactiveButtonClass);
   });
 };
 
@@ -44,7 +44,7 @@ function isInputValid(formElement, inputElement, inputErrorClass, errorClass) {
   }
 }
 
-function setEventListeners(formElement, inputErrorClass, errorClass, inputSelector, saveButtonSelector, inactiveButtonClass) {
+function setInputListeners(formElement, inputErrorClass, errorClass, inputSelector, saveButtonSelector, inactiveButtonClass) {
   const buttonElement = formElement.querySelector(saveButtonSelector);
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   toggleButtonState(inputList, buttonElement, inactiveButtonClass);
