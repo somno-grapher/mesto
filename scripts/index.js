@@ -85,6 +85,7 @@ function addCard(cardTitle, cardLink, isPrepending = true) {
 
 function closePopup(popup) {
   popup.classList.remove(popupOpenedClass);
+  document.removeEventListener('keyup', handleEscUp);
   popup.querySelector(popupFormSelector).reset();
 }
 
@@ -116,7 +117,6 @@ function createCard(item) {
 function handleEscUp(event) {
   if (event.key === escKey) {
     const activePopup = document.querySelector('.' + popupOpenedClass);
-    document.removeEventListener('keyup', handleEscUp);
     closePopup(activePopup);
   };
 };
