@@ -84,6 +84,17 @@ function validateFormOnOpening(formElement, inputErrorClass, errorClass, inputSe
 };
 
 
+// * event listeners: ascending order
+
+addCardButton.addEventListener('click', () => {
+  validateFormOnOpening(addCardForm, validationSettings.inputErrorClass, validationSettings.errorClass, validationSettings.inputSelector, validationSettings.saveButtonSelector, validationSettings.inactiveButtonClass);
+});
+
+editProfileButton.addEventListener('click', () => {
+  validateFormOnOpening(editProfileForm, validationSettings.inputErrorClass, validationSettings.errorClass, validationSettings.inputSelector, validationSettings.saveButtonSelector, validationSettings.inactiveButtonClass);
+});
+
+
 // * main code
 
 enableValidation(validationSettings);
