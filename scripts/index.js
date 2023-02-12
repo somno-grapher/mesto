@@ -1,3 +1,7 @@
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+
+
 // * vars: pseudo-ascending order
 
 // root vars derived from literals
@@ -44,6 +48,14 @@ const initialCards = [
 const popupFormSelector = '.popup__form';
 const popupOpenedClass = 'popup_opened';
 const popupSelector = '.popup';
+const validationSettings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  saveButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
 
 // root vars derived from document and literals
 const addCardButton = document.querySelector('.add-button_type_card');
@@ -62,9 +74,14 @@ const showPhotoPopup = document.querySelector('.popup_type_show-photo');
 const cardTitleInput = addCardForm.querySelector('.input-field_name_card-title');
 const cardPhotoLinkInput = addCardForm.querySelector('.input-field_name_card-photo-link');
 
+
 // root vars derived from editProfileForm and literals
 const profileAboutInput = editProfileForm.querySelector('.input-field_name_profile-about');
 const profileNameInput = editProfileForm.querySelector('.input-field_name_profile-name');
+
+// form validators
+const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
+const editProfileFormValidator = new FormValidator(validationSettings, editProfileForm);
 
 
 // * functions: ascending order
@@ -96,7 +113,7 @@ function addOverlayClickListeners(popupSelector) {
 function closePopup(popup) {
   popup.classList.remove(popupOpenedClass);
   document.removeEventListener('keyup', handleEscUp);
-  formElement = popup.querySelector(popupFormSelector);
+  const formElement = popup.querySelector(popupFormSelector);
   if (formElement) {
     formElement.reset();
   }
@@ -131,7 +148,6 @@ function submitEditProfileForm(event) {
 
 // * main code
 
-
 // add initial cards
 
 initialCards.forEach(item => {
@@ -142,6 +158,7 @@ initialCards.forEach(item => {
 // add event listeners
 
 addCardButton.addEventListener('click', () => {
+  addCardFormValidator.validateOnOpening();
   openPopup(addCardPopup);
 });
 
@@ -155,33 +172,16 @@ closeButtons.forEach((button) => {
 });
 
 editProfileButton.addEventListener('click', () => {
-  openPopup(editProfilePopup);
   profileNameInput.value = profileName.textContent;
   profileAboutInput.value = profileAbout.textContent;
+  editProfileFormValidator.validateOnOpening();
+  openPopup(editProfilePopup);
 });
 
 editProfileForm.addEventListener('submit', submitEditProfileForm);
 
-const validationSettings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  saveButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}
 
+// implement validation on input
 
-// implement validation
-
-const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
-addCardButton.addEventListener('click', () => {
-  addCardFormValidator.validateOnOpening();
-});
 addCardFormValidator.enableValidation();
-
-const editProfileFormValidator = new FormValidator(validationSettings, editProfileForm);
-editProfileButton.addEventListener('click', () => {
-  editProfileFormValidator.validateOnOpening();
-});
 editProfileFormValidator.enableValidation();

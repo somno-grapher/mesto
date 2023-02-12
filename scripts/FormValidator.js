@@ -77,3 +77,5 @@ class FormValidator {
   };
 
 }
+
+export { FormValidator };
