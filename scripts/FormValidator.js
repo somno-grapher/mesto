@@ -1,12 +1,14 @@
-// * classes: ascending order
-
 class FormValidator {
+
   constructor(settings, formElement) {
     this._settings = settings;
     this._formElement = formElement;
     this._buttonElement = this._formElement.querySelector(this._settings.saveButtonSelector);
     this._inputList = Array.from(this._formElement.querySelectorAll(this._settings.inputSelector));
   }
+
+
+  // private methods: ascending order
 
   _addInputListeners() {
     this._inputList.forEach((inputElement) => {
@@ -60,6 +62,13 @@ class FormValidator {
     }
   };
 
+
+  // public methods: ascending order
+
+  enableValidation() {
+    this._addInputListeners();
+  }
+
   validateOnOpening() {
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
@@ -67,31 +76,4 @@ class FormValidator {
     this._toggleButtonState();
   };
 
-  enableValidation() {
-    this._addInputListeners();
-  }
 }
-
-
-// * main code
-
-const validationSettings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  saveButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}
-
-const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
-addCardButton.addEventListener('click', () => {
-  addCardFormValidator.validateOnOpening();
-});
-addCardFormValidator.enableValidation();
-
-const editProfileFormValidator = new FormValidator(validationSettings, editProfileForm);
-editProfileButton.addEventListener('click', () => {
-  editProfileFormValidator.validateOnOpening();
-});
-editProfileFormValidator.enableValidation();
