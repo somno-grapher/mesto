@@ -1,16 +1,17 @@
 class Card {
 
-  constructor(item, cardSettings, openPopup) {
+  constructor(item, cardSettings, handleShowPhoto, photoPopupComponents, openPopup) {
     // vars: pseudo-ascending order
 
     // root vars derived from parameters
     this._item = item;
     this._cardSettings = cardSettings;
+    this._handleShowPhoto = handleShowPhoto;
+    this._photoPopupComponents = photoPopupComponents;
     this._openPopup = openPopup;
 
     // root vars derived from document and this._cardSettings
     this._cardTemplate = document.querySelector(this._cardSettings.templateSelector).content.querySelector(this._cardSettings.itemSelector);
-    this._showPhotoPopup = document.querySelector(this._cardSettings.showPhotoPopupSelector);
 
     // root vars derived from this._cardTemplate
     this._card = this._cardTemplate.cloneNode(true);
@@ -20,10 +21,6 @@ class Card {
     this._likeButton = this._card.querySelector(this._cardSettings.likeButtonSelector);
     this._photo = this._card.querySelector(this._cardSettings.photoSelector);
     this._title = this._card.querySelector(this._cardSettings.titleSelector);
-
-    // root vars derived from this._showPhotoPopup and this._cardSettings
-    this._fullPhoto = this._showPhotoPopup.querySelector(this._cardSettings.fullPhotoSelector);
-    this._fullPhotoTitle = this._showPhotoPopup.querySelector(this._cardSettings.fullPhotoTitle);
 
     // this._photo properties derived from this._item
     this._photo.alt = this._item.name;
@@ -53,19 +50,10 @@ class Card {
     });
   }
 
-  _handleShowPhoto() {
-    this._photo.addEventListener('click', () => {
-      this._fullPhoto.src = this._item.link;
-      this._fullPhoto.alt = this._item.name;
-      this._fullPhotoTitle.textContent = this._item.name;
-      this._openPopup(this._showPhotoPopup);
-    });
-  }
-
   _setEventListeners() {
     this._handleLikedCard();
     this._handleRemoveCard();
-    this._handleShowPhoto();
+    this._handleShowPhoto(this._item, this._photo, this._photoPopupComponents, this._openPopup);
   }
 
 

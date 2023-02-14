@@ -70,6 +70,7 @@ const photoGridList = document.querySelector('.photo-grid__list');
 const profileName = document.querySelector('.profile__name');
 const showPhotoPopup = document.querySelector('.popup_type_show-photo');
 
+
 // root vars derived from addCardForm and literals
 const cardTitleInput = addCardForm.querySelector('.input-field_name_card-title');
 const cardPhotoLinkInput = addCardForm.querySelector('.input-field_name_card-photo-link');
@@ -79,19 +80,27 @@ const cardPhotoLinkInput = addCardForm.querySelector('.input-field_name_card-pho
 const profileAboutInput = editProfileForm.querySelector('.input-field_name_profile-about');
 const profileNameInput = editProfileForm.querySelector('.input-field_name_profile-name');
 
+// showPhotoPopup scope
+const photoPopupComponents = {
+  popup: showPhotoPopup,
+  photo: showPhotoPopup.querySelector('.full-photo'),
+  title: showPhotoPopup.querySelector('.popup__title')
+}
+
 // form validators
 const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
 const editProfileFormValidator = new FormValidator(validationSettings, editProfileForm);
 
 
+
 // * functions: ascending order
 
-function addCard(cardTitle, cardLink, cardSettings, isPrepending = true) {
+function addCard(cardTitle, cardLink, cardSettings, photoPopupComponents, isPrepending = true) {
   const item = {
     name: cardTitle,
     link: cardLink
   };
-  const card = new Card(item, cardSettings, openPopup);
+  const card = new Card(item, cardSettings, handleShowPhoto, photoPopupComponents, openPopup);
   if (isPrepending) {
     photoGridList.prepend(card.generateCard());
   } else {
@@ -126,6 +135,15 @@ function handleEscUp(event) {
   };
 };
 
+const handleShowPhoto = function (item, photo, photoPopupComponents, openPopup) {
+  photo.addEventListener('click', () => {
+    photoPopupComponents.photo.src = item.link;
+    photoPopupComponents.photo.alt = item.name;
+    photoPopupComponents.title.textContent = item.name;
+    openPopup(photoPopupComponents.popup);
+  });
+}
+
 const openPopup = function (popup) {
   popup.classList.add(popupOpenedClass);
   document.addEventListener('keyup', handleEscUp);
@@ -133,7 +151,7 @@ const openPopup = function (popup) {
 
 function submitAddCardForm(event) {
   event.preventDefault();
-  addCard(cardTitleInput.value, cardPhotoLinkInput.value, cardSettings);
+  addCard(cardTitleInput.value, cardPhotoLinkInput.value, cardSettings, photoPopupComponents);
   addCardForm.reset();
   closePopup(addCardPopup);
 };
@@ -151,7 +169,7 @@ function submitEditProfileForm(event) {
 // add initial cards
 
 initialCards.forEach(item => {
-  addCard(item.name, item.link, cardSettings, false);
+  addCard(item.name, item.link, cardSettings, photoPopupComponents, false);
 });
 
 
