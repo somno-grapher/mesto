@@ -95,19 +95,6 @@ const editProfileFormValidator = new FormValidator(validationSettings, editProfi
 
 // * functions: ascending order
 
-function addCard(cardTitle, cardLink, cardSettings, photoPopupComponents, isPrepending = true) {
-  const item = {
-    name: cardTitle,
-    link: cardLink
-  };
-  const card = new Card(item, cardSettings, handleShowPhoto, photoPopupComponents, openPopup);
-  if (isPrepending) {
-    photoGridList.prepend(card.generateCard());
-  } else {
-    photoGridList.append(card.generateCard());
-  }
-}
-
 function addOverlayClickListeners(popupSelector) {
   const popupList = Array.from(document.querySelectorAll(popupSelector));
   popupList.forEach((popup) => {
@@ -126,6 +113,15 @@ function closePopup(popup) {
   if (formElement) {
     formElement.reset();
   }
+}
+
+function generateCard(cardTitle, cardLink) {
+  const item = {
+    name: cardTitle,
+    link: cardLink
+  };
+  const card = new Card(item, cardSettings, handleShowPhoto, photoPopupComponents, openPopup);
+  return card.generateCard();
 }
 
 function handleEscUp(event) {
@@ -151,7 +147,8 @@ const openPopup = function (popup) {
 
 function submitAddCardForm(event) {
   event.preventDefault();
-  addCard(cardTitleInput.value, cardPhotoLinkInput.value, cardSettings, photoPopupComponents);
+  const card = generateCard(cardTitleInput.value, cardPhotoLinkInput.value);
+  photoGridList.prepend(card);
   addCardForm.reset();
   closePopup(addCardPopup);
 };
@@ -169,7 +166,8 @@ function submitEditProfileForm(event) {
 // add initial cards
 
 initialCards.forEach(item => {
-  addCard(item.name, item.link, cardSettings, photoPopupComponents, false);
+  const card = generateCard(item.name, item.link);
+  photoGridList.append(card);
 });
 
 
