@@ -18,6 +18,7 @@ const cardSettings = {
   fullPhotoSelector: '.full-photo',
   fullPhotoTitle: '.popup__title'
 }
+const closeButtonClass = 'popup__close-button';
 const escKey = 'Escape';
 const initialCards = [
   {
@@ -61,7 +62,6 @@ const validationSettings = {
 const addCardButton = document.querySelector('.add-button_type_card');
 const addCardForm = document.forms['add-card-form'];
 const addCardPopup = document.querySelector('.popup_type_add-card');
-const closeButtons = document.querySelectorAll('.popup__close-button');
 const editProfileButton = document.querySelector('.edit-button_type_profile');
 const editProfileForm = document.forms['edit-profile-form'];
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
@@ -95,11 +95,11 @@ const editProfileFormValidator = new FormValidator(validationSettings, editProfi
 
 // * functions: ascending order
 
-function addOverlayClickListeners(popupSelector) {
+function addPopupClosingClickListeners(popupSelector) {
   const popupList = Array.from(document.querySelectorAll(popupSelector));
   popupList.forEach((popup) => {
     popup.addEventListener('click', (event) => {
-      if (event.currentTarget === event.target) {
+      if ((event.currentTarget === event.target) || (event.target.classList.contains(closeButtonClass))) {
         closePopup(popup);
       }
     });
@@ -180,12 +180,7 @@ addCardButton.addEventListener('click', () => {
 
 addCardForm.addEventListener('submit', submitAddCardForm);
 
-addOverlayClickListeners(popupSelector);
-
-closeButtons.forEach((button) => {
-  const popup = button.closest(popupSelector);
-  button.addEventListener('click', () => closePopup(popup));
-});
+addPopupClosingClickListeners(popupSelector);
 
 editProfileButton.addEventListener('click', () => {
   profileNameInput.value = profileName.textContent;
