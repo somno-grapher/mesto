@@ -1,10 +1,12 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import Section from './Section.js';
+import Popup from './Popup.js';
 
 // * vars: pseudo-ascending order
 
 // root vars derived from literals
+const addCardPopupSelector = '.popup_type_add-card';
 const cardSettings = {
   templateSelector: '#card-template',
   itemSelector: '.card',
@@ -62,7 +64,8 @@ const validationSettings = {
 // root vars derived from document and literals
 const addCardButton = document.querySelector('.add-button_type_card');
 const addCardForm = document.forms['add-card-form'];
-const addCardPopup = document.querySelector('.popup_type_add-card');
+// !
+// const addCardPopup = document.querySelector('.popup_type_add-card');
 const editProfileButton = document.querySelector('.edit-button_type_profile');
 const editProfileForm = document.forms['edit-profile-form'];
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
@@ -168,16 +171,18 @@ const photoGridList = new Section(
 
 photoGridList.generateAndAddInitialItems();
 
+const addCardPopup = new Popup(addCardPopupSelector);
+
 // add event listeners
 
 addCardButton.addEventListener('click', () => {
   addCardFormValidator.validateOnOpening();
-  openPopup(addCardPopup);
+  addCardPopup.open();
 });
 
 addCardForm.addEventListener('submit', submitAddCardForm);
 
-addPopupClosingClickListeners(popupSelector);
+// addPopupClosingClickListeners(popupSelector);
 
 editProfileButton.addEventListener('click', () => {
   profileNameInput.value = profileName.textContent;
