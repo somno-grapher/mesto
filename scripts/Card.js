@@ -59,7 +59,7 @@ class Card {
 
   // public methods: ascending order
 
-  generateCard() {
+  generateCardElement() {
     return this._card;
   }
 

@@ -1,6 +1,6 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
-
+import Section from './Section.js';
 
 // * vars: pseudo-ascending order
 
@@ -46,6 +46,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+const photoGridListSelector = '.photo-grid__list';
 const popupFormSelector = '.popup__form';
 const popupOpenedClass = 'popup_opened';
 const popupSelector = '.popup';
@@ -66,7 +67,7 @@ const editProfileButton = document.querySelector('.edit-button_type_profile');
 const editProfileForm = document.forms['edit-profile-form'];
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
 const profileAbout = document.querySelector('.profile__about');
-const photoGridList = document.querySelector('.photo-grid__list');
+// const photoGridList = document.querySelector('.photo-grid__list');
 const profileName = document.querySelector('.profile__name');
 const showPhotoPopup = document.querySelector('.popup_type_show-photo');
 
@@ -115,15 +116,6 @@ function closePopup(popup) {
   }
 }
 
-function generateCard(cardTitle, cardLink) {
-  const item = {
-    name: cardTitle,
-    link: cardLink
-  };
-  const card = new Card(item, cardSettings, handleShowPhoto, photoPopupComponents, openPopup);
-  return card.generateCard();
-}
-
 function handleEscUp(event) {
   if (event.key === escKey) {
     const activePopup = document.querySelector('.' + popupOpenedClass);
@@ -147,8 +139,8 @@ const openPopup = function (popup) {
 
 function submitAddCardForm(event) {
   event.preventDefault();
-  const card = generateCard(cardTitleInput.value, cardPhotoLinkInput.value);
-  photoGridList.prepend(card);
+  const cardElement = new Card({ name: cardTitleInput.value, link: cardPhotoLinkInput.value }, cardSettings, handleShowPhoto, photoPopupComponents, openPopup).generateCardElement();
+  photoGridList.addItem(cardElement, true);
   addCardForm.reset();
   closePopup(addCardPopup);
 };
@@ -163,13 +155,18 @@ function submitEditProfileForm(event) {
 
 // * main code
 
-// add initial cards
+const photoGridList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = new Card(item, cardSettings, handleShowPhoto, photoPopupComponents, openPopup).generateCardElement();
+      photoGridList.addItem(cardElement, false);
+    }
+  },
+  photoGridListSelector
+);
 
-initialCards.forEach(item => {
-  const card = generateCard(item.name, item.link);
-  photoGridList.append(card);
-});
-
+photoGridList.generateAndAddInitialItems();
 
 // add event listeners
 
