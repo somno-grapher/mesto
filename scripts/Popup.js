@@ -5,7 +5,6 @@ export default class Popup {
     this._escKey = 'Escape';
     this._popupElement = document.querySelector(selector);
     this._popupOpenedClass = 'popup_opened';
-    this.setEventListeners();
   }
 
   _handleEscClose(event) {

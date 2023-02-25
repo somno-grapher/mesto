@@ -1,7 +1,7 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import Section from './Section.js';
-import Popup from './Popup.js';
+import PopupWithForm from './PopupWithForm.js';
 
 // * vars: pseudo-ascending order
 
@@ -99,6 +99,7 @@ const editProfileFormValidator = new FormValidator(validationSettings, editProfi
 
 // * functions: ascending order
 
+// !original
 function addPopupClosingClickListeners(popupSelector) {
   const popupList = Array.from(document.querySelectorAll(popupSelector));
   popupList.forEach((popup) => {
@@ -110,6 +111,7 @@ function addPopupClosingClickListeners(popupSelector) {
   });
 }
 
+// !original
 function closePopup(popup) {
   popup.classList.remove(popupOpenedClass);
   document.removeEventListener('keyup', handleEscUp);
@@ -119,6 +121,7 @@ function closePopup(popup) {
   }
 }
 
+// !original
 function handleEscUp(event) {
   if (event.key === escKey) {
     const activePopup = document.querySelector('.' + popupOpenedClass);
@@ -135,17 +138,20 @@ const handleShowPhoto = function (item, photo, photoPopupComponents, openPopup) 
   });
 }
 
+// !original
 const openPopup = function (popup) {
   popup.classList.add(popupOpenedClass);
   document.addEventListener('keyup', handleEscUp);
 };
 
-function submitAddCardForm(event) {
-  event.preventDefault();
-  const cardElement = new Card({ name: cardTitleInput.value, link: cardPhotoLinkInput.value }, cardSettings, handleShowPhoto, photoPopupComponents, openPopup).generateCardElement();
+function submitAddCardForm(data) {
+  // event.preventDefault();
+  const cardElement = new Card({ name: data['card-title'], link: data['card-photo-link'] }, cardSettings, handleShowPhoto, photoPopupComponents, openPopup).generateCardElement();
   photoGridList.addItem(cardElement, true);
-  addCardForm.reset();
-  closePopup(addCardPopup);
+  // !to be moved to close method
+  // addCardForm.reset();
+  // closePopup(addCardPopup);
+  // addCardPopup.close();
 };
 
 function submitEditProfileForm(event) {
@@ -158,6 +164,12 @@ function submitEditProfileForm(event) {
 
 // * main code
 
+// !original
+// addCardButton.addEventListener('click', () => {
+//   addCardFormValidator.validateOnOpening();
+//   openPopup(addCardPopup);
+// });
+
 const photoGridList = new Section(
   {
     items: initialCards,
@@ -168,10 +180,10 @@ const photoGridList = new Section(
   },
   photoGridListSelector
 );
-
 photoGridList.generateAndAddInitialItems();
+const addCardPopup = new PopupWithForm(addCardPopupSelector, submitAddCardForm);
+addCardPopup.setEventListeners();
 
-const addCardPopup = new Popup(addCardPopupSelector);
 
 // add event listeners
 
@@ -180,7 +192,8 @@ addCardButton.addEventListener('click', () => {
   addCardPopup.open();
 });
 
-addCardForm.addEventListener('submit', submitAddCardForm);
+// ! original
+// addCardForm.addEventListener('submit', submitAddCardForm);
 
 // addPopupClosingClickListeners(popupSelector);
 
