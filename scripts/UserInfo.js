@@ -1,8 +1,18 @@
-export default class Popup {
+export default class UserInfo {
 
-  constructor(selector) {
-    this._closeButtonClass = 'popup__close-button';
-    this._escKey = 'Escape';
-    this._popupElement = document.querySelector(selector);
-    this._popupOpenedClass = 'popup_opened';
+  constructor({ nameSelector, aboutSelector }) {
+    this._nameSelector = nameSelector;
+    this._aboutSelector = aboutSelector;
+    this._name = document.querySelector(this._nameSelector);
+    this._about = document.querySelector(this._aboutSelector);
   }
+
+  getUserInfo() {
+    return { name: this._name, about: this._about };
+  }
+
+  setUserInfo() {
+
+  }
+
+}
