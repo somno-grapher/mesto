@@ -2,6 +2,7 @@ import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import Section from './Section.js';
 import PopupWithForm from './PopupWithForm.js';
+import PopupWithImage from './PopupWithImage.js';
 
 // * vars: pseudo-ascending order
 
@@ -73,7 +74,7 @@ const editProfilePopup = document.querySelector('.popup_type_edit-profile');
 const profileAbout = document.querySelector('.profile__about');
 // const photoGridList = document.querySelector('.photo-grid__list');
 const profileName = document.querySelector('.profile__name');
-const showPhotoPopup = document.querySelector('.popup_type_show-photo');
+// const showPhotoPopup = document.querySelector('.popup_type_show-photo');
 
 
 // root vars derived from addCardForm and literals
@@ -86,11 +87,11 @@ const profileAboutInput = editProfileForm.querySelector('.input-field_name_profi
 const profileNameInput = editProfileForm.querySelector('.input-field_name_profile-name');
 
 // showPhotoPopup scope
-const photoPopupComponents = {
-  popup: showPhotoPopup,
-  photo: showPhotoPopup.querySelector('.full-photo'),
-  title: showPhotoPopup.querySelector('.popup__title')
-}
+// const photoPopupComponents = {
+//   popup: showPhotoPopup,
+//   photo: showPhotoPopup.querySelector('.full-photo'),
+//   title: showPhotoPopup.querySelector('.popup__title')
+// }
 
 // form validators
 const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
@@ -130,6 +131,7 @@ function handleEscUp(event) {
   };
 };
 
+// ! original
 const handleShowPhoto = function (item, photo, photoPopupComponents, openPopup) {
   photo.addEventListener('click', () => {
     photoPopupComponents.photo.src = item.link;
@@ -147,7 +149,7 @@ const openPopup = function (popup) {
 
 function submitAddCardForm(data) {
   // event.preventDefault();
-  const cardElement = new Card({ name: data['card-title'], link: data['card-photo-link'] }, cardSettings, handleShowPhoto, photoPopupComponents, openPopup).generateCardElement();
+  const cardElement = new Card({ name: data['card-title'], link: data['card-photo-link'] }, cardSettings, showPhotoPopup.open.bind(showPhotoPopup), null, openPopup).generateCardElement();
   photoGridList.addItem(cardElement, true);
   // !to be moved to close method
   // addCardForm.reset();
@@ -173,21 +175,38 @@ function submitEditProfileForm(data) {
 //   openPopup(addCardPopup);
 // });
 
-const photoGridList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const cardElement = new Card(item, cardSettings, handleShowPhoto, photoPopupComponents, openPopup).generateCardElement();
-      photoGridList.addItem(cardElement, false);
-    }
-  },
-  photoGridListSelector
-);
-photoGridList.generateAndAddInitialItems();
+// const photoGridList = new Section(
+//   {
+//     items: initialCards,
+//     renderer: (item) => {
+//       const cardElement = new Card(item, cardSettings, handleShowPhoto, photoPopupComponents, openPopup).generateCardElement();
+//       photoGridList.addItem(cardElement, false);
+//     }
+//   },
+//   photoGridListSelector
+// );
 const addCardPopup = new PopupWithForm(addCardPopupSelector, submitAddCardForm);
 addCardPopup.setEventListeners();
 const editProfilePopup2 = new PopupWithForm(editProfilePopupSelector, submitEditProfileForm);
 editProfilePopup2.setEventListeners();
+const showPhotoPopup = new PopupWithImage('.popup_type_show-photo');
+showPhotoPopup.setEventListeners();
+const photoGridList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = new Card(item, cardSettings, showPhotoPopup.open.bind(showPhotoPopup), null, openPopup).generateCardElement();
+      photoGridList.addItem(cardElement, false);
+    }
+  },
+  photoGridListSelector
+  );
+photoGridList.generateAndAddInitialItems();
+
+function test() {
+  console.log('test');
+  showPhotoPopup.open();
+}
 
 // add event listeners
 

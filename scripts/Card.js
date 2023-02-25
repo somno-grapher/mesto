@@ -1,13 +1,13 @@
 class Card {
 
-  constructor(item, cardSettings, handleShowPhoto, photoPopupComponents, openPopup) {
+  constructor(item, cardSettings, handleCardClick, photoPopupComponents, openPopup) {
     // vars: pseudo-ascending order
 
     // root vars derived from parameters
     this._item = item;
     this._cardSettings = cardSettings;
-    this._handleShowPhoto = handleShowPhoto;
-    this._photoPopupComponents = photoPopupComponents;
+    this._handleCardClick = handleCardClick;
+    // this._photoPopupComponents = photoPopupComponents;
     this._openPopup = openPopup;
 
     // root vars derived from document and this._cardSettings
@@ -53,7 +53,10 @@ class Card {
   _setEventListeners() {
     this._handleLikedCard();
     this._handleRemoveCard();
-    this._handleShowPhoto(this._item, this._photo, this._photoPopupComponents, this._openPopup);
+    // this._handleShowPhoto(this._item, this._photo, this._photoPopupComponents, this._openPopup);
+    this._photo.addEventListener('click', () => {
+      this._handleCardClick(this._item);
+    });
   }
 
 
