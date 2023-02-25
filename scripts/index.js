@@ -21,6 +21,7 @@ const cardSettings = {
   fullPhotoTitle: '.popup__title'
 }
 const closeButtonClass = 'popup__close-button';
+const editProfilePopupSelector = '.popup_type_edit-profile';
 const escKey = 'Escape';
 const initialCards = [
   {
@@ -154,11 +155,13 @@ function submitAddCardForm(data) {
   // addCardPopup.close();
 };
 
-function submitEditProfileForm(event) {
-  event.preventDefault();
-  profileName.textContent = profileNameInput.value;
-  profileAbout.textContent = profileAboutInput.value;
-  closePopup(editProfilePopup);
+function submitEditProfileForm(data) {
+  // event.preventDefault();
+  // profileName.textContent = profileNameInput.value;
+  // profileAbout.textContent = profileAboutInput.value;
+  profileName.textContent = data['profile-name'];
+  profileAbout.textContent = data['profile-about'];
+  // closePopup(editProfilePopup);
 };
 
 
@@ -183,7 +186,8 @@ const photoGridList = new Section(
 photoGridList.generateAndAddInitialItems();
 const addCardPopup = new PopupWithForm(addCardPopupSelector, submitAddCardForm);
 addCardPopup.setEventListeners();
-
+const editProfilePopup2 = new PopupWithForm(editProfilePopupSelector, submitEditProfileForm);
+editProfilePopup2.setEventListeners();
 
 // add event listeners
 
@@ -201,10 +205,10 @@ editProfileButton.addEventListener('click', () => {
   profileNameInput.value = profileName.textContent;
   profileAboutInput.value = profileAbout.textContent;
   editProfileFormValidator.validateOnOpening();
-  openPopup(editProfilePopup);
+  editProfilePopup2.open();
 });
 
-editProfileForm.addEventListener('submit', submitEditProfileForm);
+// editProfileForm.addEventListener('submit', submitEditProfileForm);
 
 
 // implement validation on input
