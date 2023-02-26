@@ -1,4 +1,4 @@
-class Card {
+export default class Card {
 
   constructor(item, cardSettings, handleCardClick) {
     // vars: pseudo-ascending order
@@ -64,5 +64,3 @@ class Card {
   }
 
 }
-
-export { Card };

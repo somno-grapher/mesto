@@ -1,15 +1,15 @@
+// * imported css: ascending
 import './pages/index.css';
 
-import { Card } from './components/Card.js';
-import { FormValidator } from './components/FormValidator.js';
-import Section from './components/Section.js';
+// * imported js: ascending
+import Card from './components/Card.js';
+import FormValidator from './components/FormValidator.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import PopupWithImage from './components/PopupWithImage.js';
+import Section from './components/Section.js';
 import UserInfo from './components/UserInfo.js';
 
-// * vars: pseudo-ascending order
-
-// root vars derived from literals
+// * vars derived from literals: ascending
 const addCardPopupSelector = '.popup_type_add-card';
 const cardSettings = {
   templateSelector: '#card-template',
@@ -52,6 +52,10 @@ const initialCards = [
   }
 ];
 const photoGridListSelector = '.photo-grid__list';
+const userInfoSelectors = {
+  nameSelector: '.profile__name',
+  aboutSelector: '.profile__about'
+};
 const validationSettings = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -61,41 +65,51 @@ const validationSettings = {
   errorClass: 'popup__error_visible'
 }
 
-// root vars derived from document and literals
-const addCardButton = document.querySelector('.add-button_type_card');
-const addCardForm = document.forms['add-card-form'];
-const editProfileButton = document.querySelector('.edit-button_type_profile');
-const editProfileForm = document.forms['edit-profile-form'];
-const profileAbout = document.querySelector('.profile__about');
-const profileName = document.querySelector('.profile__name');
-const userInfoSelectors = { nameSelector: '.profile__name', aboutSelector: '.profile__about' };
-
-// root vars derived from editProfileForm and literals
-const profileAboutInput = editProfileForm.querySelector('.input-field_name_profile-about');
-const profileNameInput = editProfileForm.querySelector('.input-field_name_profile-name');
-
-// form validators
-const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
-const editProfileFormValidator = new FormValidator(validationSettings, editProfileForm);
-
-
-// * functions: ascending order
-
+// * functions: ascending
 function submitAddCardForm(data) {
   const cardElement = new Card({ name: data['card-title'], link: data['card-photo-link'] }, cardSettings, showPhotoPopup.open.bind(showPhotoPopup)).generateCardElement();
   photoGridList.addItem(cardElement, true);
 };
 
-
 // * main code
 
+// user info features
 const userInfo = new UserInfo(userInfoSelectors);
+
+// adding card features
 const addCardPopup = new PopupWithForm(addCardPopupSelector, submitAddCardForm);
+const addCardForm = addCardPopup.form;
 addCardPopup.setEventListeners();
+const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
+addCardFormValidator.enableValidation();
+const addCardButton = document.querySelector('.add-button_type_card');
+addCardButton.addEventListener('click', () => {
+  addCardFormValidator.validateOnOpening();
+  addCardPopup.open();
+});
+
+// editing profile features
 const editProfilePopup = new PopupWithForm(editProfilePopupSelector, userInfo.setUserInfo.bind(userInfo));
+const editProfileForm = editProfilePopup.form;
+const profileAboutInput = editProfileForm.querySelector('.input-field_name_profile-about');
+const profileNameInput = editProfileForm.querySelector('.input-field_name_profile-name');
 editProfilePopup.setEventListeners();
+const editProfileFormValidator = new FormValidator(validationSettings, editProfileForm);
+editProfileFormValidator.enableValidation();
+const editProfileButton = document.querySelector('.edit-button_type_profile');
+editProfileButton.addEventListener('click', () => {
+  const userInfoData = userInfo.getUserInfo();
+  profileNameInput.value = userInfoData.name;
+  profileAboutInput.value = userInfoData.about;
+  editProfileFormValidator.validateOnOpening();
+  editProfilePopup.open();
+});
+
+// showing photo features
 const showPhotoPopup = new PopupWithImage('.popup_type_show-photo');
 showPhotoPopup.setEventListeners();
+
+// photo grid features
 const photoGridList = new Section(
   {
     items: initialCards,
@@ -105,27 +119,5 @@ const photoGridList = new Section(
     }
   },
   photoGridListSelector
-  );
+);
 photoGridList.generateAndAddInitialItems();
-
-
-// add event listeners
-
-addCardButton.addEventListener('click', () => {
-  addCardFormValidator.validateOnOpening();
-  addCardPopup.open();
-});
-
-editProfileButton.addEventListener('click', () => {
-  const userInfoData=userInfo.getUserInfo();
-  profileNameInput.value = userInfoData.name;
-  profileAboutInput.value = userInfoData.about;
-  editProfileFormValidator.validateOnOpening();
-  editProfilePopup.open();
-});
-
-
-// implement validation on input
-
-addCardFormValidator.enableValidation();
-editProfileFormValidator.enableValidation();
