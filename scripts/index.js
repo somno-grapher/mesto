@@ -66,6 +66,7 @@ const editProfileButton = document.querySelector('.edit-button_type_profile');
 const editProfileForm = document.forms['edit-profile-form'];
 const profileAbout = document.querySelector('.profile__about');
 const profileName = document.querySelector('.profile__name');
+const userInfoSelectors = { nameSelector: '.profile__name', aboutSelector: '.profile__about' };
 
 // root vars derived from editProfileForm and literals
 const profileAboutInput = editProfileForm.querySelector('.input-field_name_profile-about');
@@ -83,17 +84,13 @@ function submitAddCardForm(data) {
   photoGridList.addItem(cardElement, true);
 };
 
-function submitEditProfileForm(data) {
-  profileName.textContent = data['profile-name'];
-  profileAbout.textContent = data['profile-about'];
-};
-
 
 // * main code
 
+const userInfo = new UserInfo(userInfoSelectors);
 const addCardPopup = new PopupWithForm(addCardPopupSelector, submitAddCardForm);
 addCardPopup.setEventListeners();
-const editProfilePopup = new PopupWithForm(editProfilePopupSelector, submitEditProfileForm);
+const editProfilePopup = new PopupWithForm(editProfilePopupSelector, userInfo.setUserInfo.bind(userInfo));
 editProfilePopup.setEventListeners();
 const showPhotoPopup = new PopupWithImage('.popup_type_show-photo');
 showPhotoPopup.setEventListeners();
@@ -118,8 +115,9 @@ addCardButton.addEventListener('click', () => {
 });
 
 editProfileButton.addEventListener('click', () => {
-  profileNameInput.value = profileName.textContent;
-  profileAboutInput.value = profileAbout.textContent;
+  const userInfoData=userInfo.getUserInfo();
+  profileNameInput.value = userInfoData.name;
+  profileAboutInput.value = userInfoData.about;
   editProfileFormValidator.validateOnOpening();
   editProfilePopup.open();
 });
