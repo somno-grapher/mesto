@@ -15,8 +15,8 @@ export default class Card {
     this._card = this._cardTemplate.cloneNode(true);
 
     // root vars derived from this._card and this._cardSettings
-    this._deleteButton = this._card.querySelector(this._cardSettings.deleteButtonSelector);
-    this._likeButton = this._card.querySelector(this._cardSettings.likeButtonSelector);
+    this._deleteButton = this._card.querySelector(this._cardSettings.buttonDeleteSelector);
+    this._likeButton = this._card.querySelector(this._cardSettings.buttonLikeSelector);
     this._photo = this._card.querySelector(this._cardSettings.photoSelector);
     this._title = this._card.querySelector(this._cardSettings.titleSelector);
 
@@ -36,12 +36,12 @@ export default class Card {
   // private methods: ascending order
 
   _handleLikeButtonClick() {
-      this._likeButton.classList.toggle(this._cardSettings.likeButtonLikedClass);
+    this._likeButton.classList.toggle(this._cardSettings.buttonLikeLikedClass);
   }
 
   _handleDeleteButtonClick() {
-      this._card.remove();
-      this._card = null;
+    this._card.remove();
+    this._card = null;
   }
 
   _setEventListeners() {

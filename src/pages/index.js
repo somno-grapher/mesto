@@ -10,20 +10,19 @@ import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 
 // * vars derived from literals: ascending
-const addCardPopupSelector = '.popup_type_add-card';
+const popupCardAddSelector = '.popup_type_add-card';
 const cardSettings = {
   templateSelector: '#card-template',
   itemSelector: '.card',
-  deleteButtonSelector: '.delete-button',
-  likeButtonSelector: '.like-button',
+  buttonDeleteSelector: '.delete-button',
+  buttonLikeSelector: '.like-button',
   photoSelector: '.card__photo',
   titleSelector: '.card__title',
-  likeButtonLikedClass: 'like-button_liked',
-  showPhotoPopupSelector: '.popup_type_show-photo',
+  buttonLikeLikedClass: 'like-button_liked',
   fullPhotoSelector: '.full-photo',
   fullPhotoTitle: '.popup__title'
 }
-const editProfilePopupSelector = '.popup_type_edit-profile';
+const popupProfileEditSelector = '.popup_type_edit-profile';
 const initialCards = [
   {
     name: 'Архыз',
@@ -67,13 +66,17 @@ const validationSettings = {
 
 // * functions: ascending
 
-function createCard(data) {
-  const cardElement = new Card({ name: data['card-title'], link: data['card-photo-link'] }, cardSettings, showPhotoPopup.open.bind(showPhotoPopup)).generateCardElement();
+function createCard(item) {
+  const cardElement = new Card(item, cardSettings, showPhotoPopup.open.bind(showPhotoPopup)).generateCardElement();
   return cardElement;
 }
 
 function submitAddCardForm(data) {
-  const cardElement = createCard(data);
+  const item = {
+    name: data['card-title'],
+    link: data['card-photo-link']
+  };
+  const cardElement = createCard(item);
   photoGridList.addItem(cardElement, true);
 };
 
@@ -83,32 +86,32 @@ function submitAddCardForm(data) {
 const userInfo = new UserInfo(userInfoSelectors);
 
 // adding card features
-const addCardPopup = new PopupWithForm(addCardPopupSelector, submitAddCardForm);
-const addCardForm = addCardPopup.form;
-addCardPopup.setEventListeners();
-const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
-addCardFormValidator.enableValidation();
-const addCardButton = document.querySelector('.add-button_type_card');
-addCardButton.addEventListener('click', () => {
-  addCardFormValidator.validateOnOpening();
-  addCardPopup.open();
+const popupCardAdd = new PopupWithForm(popupCardAddSelector, submitAddCardForm);
+const formCardAdd = popupCardAdd.form;
+popupCardAdd.setEventListeners();
+const formCardAddValidator = new FormValidator(validationSettings, formCardAdd);
+formCardAddValidator.enableValidation();
+const buttonCardAdd = document.querySelector('.add-button_type_card');
+buttonCardAdd.addEventListener('click', () => {
+  formCardAddValidator.validateOnOpening();
+  popupCardAdd.open();
 });
 
 // editing profile features
-const editProfilePopup = new PopupWithForm(editProfilePopupSelector, userInfo.setUserInfo.bind(userInfo));
-const editProfileForm = editProfilePopup.form;
-const profileAboutInput = editProfileForm.querySelector('.input-field_name_profile-about');
-const profileNameInput = editProfileForm.querySelector('.input-field_name_profile-name');
-editProfilePopup.setEventListeners();
-const editProfileFormValidator = new FormValidator(validationSettings, editProfileForm);
-editProfileFormValidator.enableValidation();
-const editProfileButton = document.querySelector('.edit-button_type_profile');
-editProfileButton.addEventListener('click', () => {
+const popupProfileEdit = new PopupWithForm(popupProfileEditSelector, userInfo.setUserInfo.bind(userInfo));
+const formProfileEdit = popupProfileEdit.form;
+const profileAboutInput = formProfileEdit.querySelector('.input-field_name_profile-about');
+const profileNameInput = formProfileEdit.querySelector('.input-field_name_profile-name');
+popupProfileEdit.setEventListeners();
+const formProfileEditValidator = new FormValidator(validationSettings, formProfileEdit);
+formProfileEditValidator.enableValidation();
+const buttonProfileEdit = document.querySelector('.edit-button_type_profile');
+buttonProfileEdit.addEventListener('click', () => {
   const userInfoData = userInfo.getUserInfo();
   profileNameInput.value = userInfoData.name;
   profileAboutInput.value = userInfoData.about;
-  editProfileFormValidator.validateOnOpening();
-  editProfilePopup.open();
+  formProfileEditValidator.validateOnOpening();
+  popupProfileEdit.open();
 });
 
 // showing photo features
@@ -120,7 +123,7 @@ const photoGridList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const cardElement = new Card(item, cardSettings, showPhotoPopup.open.bind(showPhotoPopup)).generateCardElement();
+      const cardElement = createCard(item);
       photoGridList.addItem(cardElement, false);
     }
   },
