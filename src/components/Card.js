@@ -37,7 +37,7 @@ export default class Card {
 
   _handleLikedCard() {
     this._likeButton.addEventListener('click', (event) => {
-      event.target.classList.toggle(this._cardSettings.likeButtonLikedClass);
+      this._likeButton.classList.toggle(this._cardSettings.likeButtonLikedClass);
     });
   }
 
