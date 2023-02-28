@@ -64,9 +64,16 @@ const validationSettings = {
   errorClass: 'popup__error_visible'
 }
 
+
 // * functions: ascending
-function submitAddCardForm(data) {
+
+function createCard(data) {
   const cardElement = new Card({ name: data['card-title'], link: data['card-photo-link'] }, cardSettings, showPhotoPopup.open.bind(showPhotoPopup)).generateCardElement();
+  return cardElement;
+}
+
+function submitAddCardForm(data) {
+  const cardElement = createCard(data);
   photoGridList.addItem(cardElement, true);
 };
 
