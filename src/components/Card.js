@@ -36,7 +36,7 @@ export default class Card {
   // private methods: ascending order
 
   _handleLikedCard() {
-    this._likeButton.addEventListener('click', (event) => {
+    this._likeButton.addEventListener('click', () => {
       this._likeButton.classList.toggle(this._cardSettings.likeButtonLikedClass);
     });
   }
