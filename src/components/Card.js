@@ -29,7 +29,6 @@ export default class Card {
 
 
     // main code
-    this._photo.classList.add(this._cardSettings.interactiveElementClass);
     this._setEventListeners();
   }
 

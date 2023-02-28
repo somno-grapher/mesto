@@ -18,7 +18,6 @@ const cardSettings = {
   likeButtonSelector: '.like-button',
   photoSelector: '.card__photo',
   titleSelector: '.card__title',
-  interactiveElementClass: 'mix-interactive-element',
   likeButtonLikedClass: 'like-button_liked',
   showPhotoPopupSelector: '.popup_type_show-photo',
   fullPhotoSelector: '.full-photo',

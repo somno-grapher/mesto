@@ -4,9 +4,6 @@
 @import url(../vendor/fonts/fonts.css);
 
 
-/* * BEM mix: pseudo-ascending order */
-@import url(../blocks/mix-interactive-element/mix-interactive-element.css);
-
 /* * BEM: pseudo-ascending order */
 
 /* buttons */
