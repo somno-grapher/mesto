@@ -35,22 +35,22 @@ export default class Card {
 
   // private methods: ascending order
 
-  _handleLikedCard() {
-    this._likeButton.addEventListener('click', () => {
+  _handleLikeButtonClick() {
       this._likeButton.classList.toggle(this._cardSettings.likeButtonLikedClass);
-    });
   }
 
-  _handleRemoveCard() {
-    this._deleteButton.addEventListener('click', () => {
+  _handleDeleteButtonClick() {
       this._card.remove();
       this._card = null;
-    });
   }
 
   _setEventListeners() {
-    this._handleLikedCard();
-    this._handleRemoveCard();
+    this._likeButton.addEventListener('click', () => {
+      this._handleLikeButtonClick();
+    });
+    this._deleteButton.addEventListener('click', () => {
+      this._handleDeleteButtonClick();
+    });
     this._photo.addEventListener('click', () => {
       this._handleCardClick(this._item);
     });
