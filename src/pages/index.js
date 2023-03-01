@@ -87,9 +87,9 @@ const userInfo = new UserInfo(userInfoSelectors);
 
 // adding card features
 const popupCardAdd = new PopupWithForm(popupCardAddSelector, submitAddCardForm);
-const formCardAdd = popupCardAdd.form;
 popupCardAdd.setEventListeners();
-const formCardAddValidator = new FormValidator(validationSettings, formCardAdd);
+const formElementCardAdd = document.forms['add-card-form'];
+const formCardAddValidator = new FormValidator(validationSettings, formElementCardAdd);
 formCardAddValidator.enableValidation();
 const buttonCardAdd = document.querySelector('.add-button_type_card');
 buttonCardAdd.addEventListener('click', () => {
@@ -99,11 +99,11 @@ buttonCardAdd.addEventListener('click', () => {
 
 // editing profile features
 const popupProfileEdit = new PopupWithForm(popupProfileEditSelector, userInfo.setUserInfo.bind(userInfo));
-const formProfileEdit = popupProfileEdit.form;
-const profileAboutInput = formProfileEdit.querySelector('.input-field_name_profile-about');
-const profileNameInput = formProfileEdit.querySelector('.input-field_name_profile-name');
 popupProfileEdit.setEventListeners();
-const formProfileEditValidator = new FormValidator(validationSettings, formProfileEdit);
+const formElementProfileEdit = document.forms['edit-profile-form'];
+const profileAboutInput = formElementProfileEdit.querySelector('.input-field_name_profile-about');
+const profileNameInput = formElementProfileEdit.querySelector('.input-field_name_profile-name');
+const formProfileEditValidator = new FormValidator(validationSettings, formElementProfileEdit);
 formProfileEditValidator.enableValidation();
 const buttonProfileEdit = document.querySelector('.edit-button_type_profile');
 buttonProfileEdit.addEventListener('click', () => {
