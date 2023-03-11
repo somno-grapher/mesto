@@ -24,4 +24,19 @@ export default class Api {
       .then(this._getJsonPromise);
   }
 
+  postCard(item) {
+    return fetch(
+      `${this._basePath}/cards`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: this._token
+        },
+        body: JSON.stringify(item)
+      }
+    )
+      .then(this._getJsonPromise);
+  }
+
 }

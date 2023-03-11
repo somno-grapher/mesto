@@ -46,13 +46,19 @@ function createCard(item) {
   return cardElement;
 }
 
-function submitAddCardForm(data) {
+function submitAddCardForm(formValues) {
   const item = {
-    name: data['card-title'],
-    link: data['card-photo-link']
+    name: formValues['card-title'],
+    link: formValues['card-photo-link']
   };
-  const cardElement = createCard(item);
-  photoGridList.addItem(cardElement, true);
+  api.postCard(item)
+    .then(jsonResponse => {
+      const cardElement = createCard(jsonResponse);
+      photoGridList.addItem(cardElement, true);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 // * main code
@@ -111,8 +117,8 @@ const api = new Api(
 );
 
 api.getInitialCards()
-  .then(items => {
-    photoGridList.generateAndAddInitialItems(items);
+  .then(jsonResponse => {
+    photoGridList.generateAndAddInitialItems(jsonResponse);
   })
   .catch(err => {
     console.log(err);
