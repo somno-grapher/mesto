@@ -5,6 +5,13 @@ export default class Api {
     this._token = token;
   }
 
+  _getJsonPromise(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
   getInitialCards() {
     return fetch(
       `${this._basePath}/cards`,
@@ -14,12 +21,7 @@ export default class Api {
         }
       }
     )
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._getJsonPromise);
   }
 
 }
