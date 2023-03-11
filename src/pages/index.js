@@ -2,6 +2,7 @@
 import './index.css';
 
 // * imported js: ascending
+import Api from '../components/Api.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -23,32 +24,6 @@ const cardSettings = {
   fullPhotoTitle: '.popup__title'
 }
 const popupProfileEditSelector = '.popup_type_edit-profile';
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 const photoGridListSelector = '.photo-grid__list';
 const userInfoSelectors = {
   nameSelector: '.profile__name',
@@ -120,13 +95,19 @@ showPhotoPopup.setEventListeners();
 
 // photo grid features
 const photoGridList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const cardElement = createCard(item);
-      photoGridList.addItem(cardElement, false);
-    }
+  item => {
+    const cardElement = createCard(item);
+    photoGridList.addItem(cardElement, false);
   },
   photoGridListSelector
 );
-photoGridList.generateAndAddInitialItems();
+
+// api features
+const api = new Api();
+api.getInitialCards()
+  .then(items => {
+    photoGridList.generateAndAddInitialItems(items);
+  })
+  .catch(err => {
+    console.log(err);
+  });
