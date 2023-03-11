@@ -1,17 +1,19 @@
-import { data } from "autoprefixer";
-
 export default class Api {
 
-  // constructor() {
-
-  // }
+  constructor(basePath, token) {
+    this._basePath = basePath;
+    this._token = token;
+  }
 
   getInitialCards() {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-61/cards', {
-      headers: {
-        authorization: '77f77b05-b295-4c6a-bc0b-34525fb16730'
+    return fetch(
+      `${this._basePath}/cards`,
+      {
+        headers: {
+          authorization: this._token
+        }
       }
-    })
+    )
       .then(res => {
         if (res.ok) {
           return res.json();

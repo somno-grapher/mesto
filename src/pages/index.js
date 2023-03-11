@@ -102,8 +102,14 @@ const photoGridList = new Section(
   photoGridListSelector
 );
 
+
 // api features
-const api = new Api();
+
+const api = new Api(
+  'https://mesto.nomoreparties.co/v1/cohort-61',
+  '77f77b05-b295-4c6a-bc0b-34525fb16730'
+);
+
 api.getInitialCards()
   .then(items => {
     photoGridList.generateAndAddInitialItems(items);
