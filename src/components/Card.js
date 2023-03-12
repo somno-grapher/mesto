@@ -1,12 +1,13 @@
 export default class Card {
 
-  constructor(item, currentUserId, cardSettings, handleCardClick) {
+  constructor(item, currentUserId, cardSettings, handleCardClick, handleDeleteButtonClick) {
     // vars: pseudo-ascending order
 
     // root vars derived from parameters
     this._item = item;
     this._cardSettings = cardSettings;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteButtonClick = handleDeleteButtonClick;
     this._isOwner = this._item.owner._id === currentUserId;
 
     // root vars derived from document and this._cardSettings
@@ -43,10 +44,6 @@ export default class Card {
     this._likeButton.classList.toggle(this._cardSettings.buttonLikeLikedClass);
   }
 
-  _handleDeleteButtonClick() {
-    this._card.remove();
-    this._card = null;
-  }
 
   _setEventListeners() {
     this._likeButton.addEventListener('click', () => {
@@ -54,7 +51,7 @@ export default class Card {
     });
     if (this._isOwner) {
       this._deleteButton.addEventListener('click', () => {
-        this._handleDeleteButtonClick();
+        this._handleDeleteButtonClick(this._item._id, this._card);
       });
     }
     this._photo.addEventListener('click', () => {

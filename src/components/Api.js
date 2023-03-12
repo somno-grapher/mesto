@@ -51,4 +51,12 @@ export default class Api {
       .then(this._getJsonPromise);
   }
 
+  deleteCardFromServer(id) {
+    return fetch(`${this._basePath}/cards/${id}`, {
+      method: 'DELETE',
+      headers: this._getHeaders(),
+    })
+      .then(this._getJsonPromise);
+  }
+
 }

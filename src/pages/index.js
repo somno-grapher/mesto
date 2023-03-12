@@ -47,10 +47,22 @@ function createCard(item) {
     item,
     currentUserId,
     cardSettings,
-    showPhotoPopup.open.bind(showPhotoPopup)
+    showPhotoPopup.open.bind(showPhotoPopup),
+    deleteCard
   )
     .generateCardElement();
   return cardElement;
+}
+
+function deleteCard(id, element) {
+  api.deleteCardFromServer(id)
+    .then(() => {
+      element.remove();
+      element = null;
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 function submitAddCardForm(formValues) {
@@ -140,7 +152,6 @@ Promise.all(
     ) => {
       currentUserId = jsonResponseUser._id;
       photoGridList.generateAndAddInitialItems(jsonResponseCards);
-      console.log(currentUserId);
     }
   )
   .catch(err => {
