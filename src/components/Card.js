@@ -1,12 +1,14 @@
 export default class Card {
 
-  constructor(item, cardSettings, handleCardClick) {
+  constructor(item, currentUserId, cardSettings, handleCardClick) {
     // vars: pseudo-ascending order
 
     // root vars derived from parameters
     this._item = item;
     this._cardSettings = cardSettings;
     this._handleCardClick = handleCardClick;
+    this._isOwner = this._item.owner._id === currentUserId;
+    console.log(this._isOwner);
 
     // root vars derived from document and this._cardSettings
     this._cardTemplate = document.querySelector(this._cardSettings.templateSelector).content.querySelector(this._cardSettings.itemSelector);
@@ -60,6 +62,10 @@ export default class Card {
   // public methods: ascending order
 
   generateCardElement() {
+    if (!this._isOwner) {
+      this._deleteButton.classList.add(this._cardSettings.buttonDeleteHiddenClass);
+    }
+
     return this._card;
   }
 

@@ -18,6 +18,7 @@
 
 @import url(../blocks/card/card.css);
 @import url(../blocks/card/__delete-button/card__delete-button.css);
+@import url(../blocks/card/__delete-button/card__delete-button_hidden.css);
 @import url(../blocks/card/__info/card__info.css);
 @import url(../blocks/card/__like-button/card__like-button.css);
 @import url(../blocks/card/__photo/card__photo.css);

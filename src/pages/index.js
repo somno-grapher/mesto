@@ -16,6 +16,7 @@ const cardSettings = {
   templateSelector: '#card-template',
   itemSelector: '.card',
   buttonDeleteSelector: '.delete-button',
+  buttonDeleteHiddenClass: 'card__delete-button_hidden',
   buttonLikeSelector: '.like-button',
   photoSelector: '.card__photo',
   titleSelector: '.card__title',
@@ -42,7 +43,13 @@ const validationSettings = {
 // * functions: ascending
 
 function createCard(item) {
-  const cardElement = new Card(item, cardSettings, showPhotoPopup.open.bind(showPhotoPopup)).generateCardElement();
+  const cardElement = new Card(
+    item,
+    currentUserId,
+    cardSettings,
+    showPhotoPopup.open.bind(showPhotoPopup)
+  )
+    .generateCardElement();
   return cardElement;
 }
 
@@ -116,6 +123,8 @@ const api = new Api(
   '77f77b05-b295-4c6a-bc0b-34525fb16730'
 );
 
+let currentUserId;
+
 Promise.all(
   [
     api.getCurrentUser(),
@@ -129,8 +138,9 @@ Promise.all(
         jsonResponseCards
       ]
     ) => {
+      currentUserId = jsonResponseUser._id;
       photoGridList.generateAndAddInitialItems(jsonResponseCards);
-      console.log(jsonResponseUser);
+      console.log(currentUserId);
     }
   )
   .catch(err => {
