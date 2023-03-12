@@ -28,7 +28,8 @@ const popupProfileEditSelector = '.popup_type_edit-profile';
 const photoGridListSelector = '.photo-grid__list';
 const userInfoSelectors = {
   nameSelector: '.profile__name',
-  aboutSelector: '.profile__about'
+  aboutSelector: '.profile__about',
+  avatarSelector: '.avatar'
 };
 const validationSettings = {
   formSelector: '.popup__form',
@@ -151,6 +152,7 @@ Promise.all(
       ]
     ) => {
       currentUserId = jsonResponseUser._id;
+      userInfo.setInitialUserInfo(jsonResponseUser);
       photoGridList.generateAndAddInitialItems(jsonResponseCards);
     }
   )
