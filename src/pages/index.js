@@ -88,7 +88,7 @@ function setUserInfo(data) {
   }
   api.patchUserInfo(info)
     .then(jsonResponseUser => {
-      userInfo.setInitialUserInfo(jsonResponseUser);
+      userInfo.setUserInfo(jsonResponseUser);
     })
     .catch(err => {
       console.log(err);
