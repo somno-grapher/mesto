@@ -52,10 +52,12 @@ export default class Api {
   }
 
   deleteCardFromServer(id) {
-    return fetch(`${this._basePath}/cards/${id}`, {
-      method: 'DELETE',
-      headers: this._getHeaders(),
-    })
+    return fetch(
+      `${this._basePath}/cards/${id}`,
+      {
+        method: 'DELETE',
+        headers: this._getHeaders(),
+      })
       .then(this._getJsonPromise);
   }
 
@@ -74,5 +76,21 @@ export default class Api {
       .then(this._getJsonPromise);
   }
 
+  likeCard(id, isLiked) {
+    let method;
+    if (!isLiked) {
+      method = 'PUT';
+    } else {
+      method = 'DELETE';
+    }
+    return fetch(
+    `${this._basePath}/cards/${id}/likes`,
+    {
+      method: method,
+      headers: this._getHeaders(),
+    },
+  )
+  .then(this._getJsonPromise);
+  }
 
 }

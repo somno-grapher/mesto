@@ -49,7 +49,8 @@ function createCard(item) {
     currentUserId,
     cardSettings,
     showPhotoPopup.open.bind(showPhotoPopup),
-    deleteCard
+    deleteCard,
+    likeCard
   )
     .generateCardElement();
   return cardElement;
@@ -94,6 +95,22 @@ function setUserInfo(data) {
       console.log(err);
     });
 };
+
+function likeCard(id, buttonLike, buttonLikeLikedClass) {
+  let isLiked;
+  if (buttonLike.classList.contains(buttonLikeLikedClass)) {
+    isLiked = true;
+  } else {
+    isLiked = false;
+  }
+  api.likeCard(id, isLiked)
+    .then(() => {
+      buttonLike.classList.toggle(buttonLikeLikedClass);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
 
 // * main code
 
