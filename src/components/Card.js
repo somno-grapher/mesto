@@ -8,7 +8,6 @@ export default class Card {
     this._cardSettings = cardSettings;
     this._handleCardClick = handleCardClick;
     this._isOwner = this._item.owner._id === currentUserId;
-    console.log(this._isOwner);
 
     // root vars derived from document and this._cardSettings
     this._cardTemplate = document.querySelector(this._cardSettings.templateSelector).content.querySelector(this._cardSettings.itemSelector);
@@ -31,6 +30,9 @@ export default class Card {
 
 
     // main code
+    if (!this._isOwner) {
+      this._deleteButton.classList.add(this._cardSettings.buttonDeleteHiddenClass);
+    }
     this._setEventListeners();
   }
 
@@ -50,9 +52,11 @@ export default class Card {
     this._likeButton.addEventListener('click', () => {
       this._handleLikeButtonClick();
     });
-    this._deleteButton.addEventListener('click', () => {
-      this._handleDeleteButtonClick();
-    });
+    if (this._isOwner) {
+      this._deleteButton.addEventListener('click', () => {
+        this._handleDeleteButtonClick();
+      });
+    }
     this._photo.addEventListener('click', () => {
       this._handleCardClick(this._item);
     });
@@ -62,10 +66,6 @@ export default class Card {
   // public methods: ascending order
 
   generateCardElement() {
-    if (!this._isOwner) {
-      this._deleteButton.classList.add(this._cardSettings.buttonDeleteHiddenClass);
-    }
-
     return this._card;
   }
 
