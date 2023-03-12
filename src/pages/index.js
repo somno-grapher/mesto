@@ -52,8 +52,8 @@ function submitAddCardForm(formValues) {
     link: formValues['card-photo-link']
   };
   api.postCard(item)
-    .then(jsonResponse => {
-      const cardElement = createCard(jsonResponse);
+    .then(jsonResponseCard => {
+      const cardElement = createCard(jsonResponseCard);
       photoGridList.addItem(cardElement, true);
     })
     .catch(err => {
@@ -116,10 +116,24 @@ const api = new Api(
   '77f77b05-b295-4c6a-bc0b-34525fb16730'
 );
 
-api.getInitialCards()
-  .then(jsonResponse => {
-    photoGridList.generateAndAddInitialItems(jsonResponse);
-  })
+Promise.all(
+  [
+    api.getCurrentUser(),
+    api.getInitialCards()
+  ]
+)
+  .then(
+    (
+      [
+        jsonResponseUser,
+        jsonResponseCards
+      ]
+    ) => {
+      photoGridList.generateAndAddInitialItems(jsonResponseCards);
+      console.log(jsonResponseUser);
+    }
+  )
   .catch(err => {
     console.log(err);
   });
+

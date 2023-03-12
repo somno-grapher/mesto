@@ -5,6 +5,13 @@ export default class Api {
     this._token = token;
   }
 
+  _getHeaders() {
+    return {
+      "Content-Type": "application/json",
+      authorization: this._token,
+    };
+  }
+
   _getJsonPromise(res) {
     if (res.ok) {
       return res.json();
@@ -16,9 +23,7 @@ export default class Api {
     return fetch(
       `${this._basePath}/cards`,
       {
-        headers: {
-          authorization: this._token
-        }
+        headers: this._getHeaders()
       }
     )
       .then(this._getJsonPromise);
@@ -29,11 +34,18 @@ export default class Api {
       `${this._basePath}/cards`,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: this._token
-        },
+        headers: this._getHeaders(),
         body: JSON.stringify(item)
+      }
+    )
+      .then(this._getJsonPromise);
+  }
+
+  getCurrentUser() {
+    return fetch(
+      `${this._basePath}/users/me`,
+      {
+        headers: this._getHeaders(),
       }
     )
       .then(this._getJsonPromise);
