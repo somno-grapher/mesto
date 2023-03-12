@@ -81,6 +81,20 @@ function submitAddCardForm(formValues) {
     });
 };
 
+function setUserInfo(data) {
+  const info = {
+    name: data['profile-name'],
+    about: data['profile-about']
+  }
+  api.patchUserInfo(info)
+    .then(jsonResponseUser => {
+      userInfo.setInitialUserInfo(jsonResponseUser);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
 // * main code
 
 // user info features
@@ -99,7 +113,8 @@ buttonCardAdd.addEventListener('click', () => {
 });
 
 // editing profile features
-const popupProfileEdit = new PopupWithForm(popupProfileEditSelector, userInfo.setUserInfo.bind(userInfo));
+// const popupProfileEdit = new PopupWithForm(popupProfileEditSelector, userInfo.setUserInfo.bind(userInfo));
+const popupProfileEdit = new PopupWithForm(popupProfileEditSelector, setUserInfo);
 popupProfileEdit.setEventListeners();
 const formElementProfileEdit = document.forms['edit-profile-form'];
 const profileAboutInput = formElementProfileEdit.querySelector('.input-field_name_profile-about');

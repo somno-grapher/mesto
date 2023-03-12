@@ -59,4 +59,20 @@ export default class Api {
       .then(this._getJsonPromise);
   }
 
+  patchUserInfo({ name, about }) {
+    return fetch(
+      `${this._basePath}/users/me`,
+      {
+        method: 'PATCH',
+        headers: this._getHeaders(),
+        body: JSON.stringify({
+          name: name,
+          about: about
+        })
+      },
+    )
+      .then(this._getJsonPromise);
+  }
+
+
 }
