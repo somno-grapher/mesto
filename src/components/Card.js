@@ -19,6 +19,7 @@ export default class Card {
     this._card = this._cardTemplate.cloneNode(true);
 
     // root vars derived from this._card and this._cardSettings
+    this._counterLikes = this._card.querySelector(this._cardSettings.counterLikesSelector);
     this._deleteButton = this._card.querySelector(this._cardSettings.buttonDeleteSelector);
     this._likeButton = this._card.querySelector(this._cardSettings.buttonLikeSelector);
     this._photo = this._card.querySelector(this._cardSettings.photoSelector);
@@ -47,7 +48,8 @@ export default class Card {
       this._handleLikeButtonClick(
         this._item._id,
         this._likeButton,
-        this._cardSettings.buttonLikeLikedClass);
+        this._cardSettings.buttonLikeLikedClass,
+        this._counterLikes);
     });
     if (this._isOwner) {
       this._deleteButton.addEventListener('click', () => {
@@ -74,6 +76,7 @@ export default class Card {
     };
     const isLiked = this._checkLikeOnCardGeneration();
     this._setLikeOnCardGeneration(isLiked);
+    this._counterLikes.textContent = this._item.likes.length;
     this._setEventListeners();
     return this._card;
   }

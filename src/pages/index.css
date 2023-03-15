@@ -17,9 +17,11 @@
 @import url(../blocks/avatar/avatar.css);
 
 @import url(../blocks/card/card.css);
+@import url(../blocks/card/__counter-likes/card__counter-likes.css);
 @import url(../blocks/card/__delete-button/card__delete-button.css);
 @import url(../blocks/card/__delete-button/card__delete-button_hidden.css);
 @import url(../blocks/card/__info/card__info.css);
+@import url(../blocks/card/__info-likes/card__info-likes.css);
 @import url(../blocks/card/__like-button/card__like-button.css);
 @import url(../blocks/card/__photo/card__photo.css);
 @import url(../blocks/card/__title/card__title.css);

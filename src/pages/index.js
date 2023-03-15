@@ -18,6 +18,7 @@ const cardSettings = {
   buttonDeleteSelector: '.delete-button',
   buttonDeleteHiddenClass: 'card__delete-button_hidden',
   buttonLikeSelector: '.like-button',
+  counterLikesSelector: '.card__counter-likes',
   photoSelector: '.card__photo',
   titleSelector: '.card__title',
   buttonLikeLikedClass: 'like-button_liked',
@@ -96,7 +97,7 @@ function setUserInfo(data) {
     });
 };
 
-function likeCard(id, buttonLike, buttonLikeLikedClass) {
+function likeCard(id, buttonLike, buttonLikeLikedClass, counterLikes) {
   let isLiked;
   if (buttonLike.classList.contains(buttonLikeLikedClass)) {
     isLiked = true;
@@ -104,8 +105,9 @@ function likeCard(id, buttonLike, buttonLikeLikedClass) {
     isLiked = false;
   }
   api.likeCard(id, isLiked)
-    .then(() => {
+    .then((item) => {
       buttonLike.classList.toggle(buttonLikeLikedClass);
+      counterLikes.textContent = item.likes.length;
     })
     .catch(err => {
       console.log(err);
