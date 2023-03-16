@@ -132,7 +132,6 @@ buttonCardAdd.addEventListener('click', () => {
 });
 
 // editing profile features
-// const popupProfileEdit = new PopupWithForm(popupProfileEditSelector, userInfo.setUserInfo.bind(userInfo));
 const popupProfileEdit = new PopupWithForm(popupProfileEditSelector, setUserInfo);
 popupProfileEdit.setEventListeners();
 const formElementProfileEdit = document.forms['edit-profile-form'];
