@@ -5,6 +5,7 @@ import './index.css';
 import Api from '../components/Api.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import Section from '../components/Section.js';
@@ -26,6 +27,7 @@ const cardSettings = {
   fullPhotoTitle: '.popup__title'
 }
 const popupProfileEditSelector = '.popup_type_edit-profile';
+const popupWithConfirmationSelector = '.popup_type_confirm';
 const photoGridListSelector = '.photo-grid__list';
 const userInfoSelectors = {
   nameSelector: '.profile__name',
@@ -58,14 +60,16 @@ function createCard(item) {
 }
 
 function deleteCard(id, element) {
-  api.deleteCardFromServer(id)
-    .then(() => {
-      element.remove();
-      element = null;
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  popupWithConfirmation.open(() => {
+    api.deleteCardFromServer(id)
+      .then(() => {
+        element.remove();
+        element = null;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
 }
 
 function submitAddCardForm(formValues) {
@@ -147,6 +151,11 @@ buttonProfileEdit.addEventListener('click', () => {
   formProfileEditValidator.validateOnOpening();
   popupProfileEdit.open();
 });
+
+// deleting card features
+const popupWithConfirmation = new PopupWithConfirmation(popupWithConfirmationSelector);
+popupWithConfirmation.setEventListeners();
+
 
 // showing photo features
 const showPhotoPopup = new PopupWithImage('.popup_type_show-photo');
