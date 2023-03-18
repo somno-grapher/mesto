@@ -101,6 +101,9 @@ function setUserInfo(data) {
     })
     .catch(err => {
       console.log(err);
+    })
+    .finally(() => {
+      popupProfileEdit.close();
     });
 };
 
