@@ -87,6 +87,9 @@ function submitAddCardForm(formValues) {
     })
     .catch(err => {
       console.log(err);
+    })
+    .finally(() => {
+      popupCardAdd.close();
     });
 };
 
