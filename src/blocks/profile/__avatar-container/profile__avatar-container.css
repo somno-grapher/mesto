@@ -1,13 +1,12 @@
 .profile__avatar-container {
   position: relative;
   display: flex;
-  transition: .3s;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .profile__avatar-container:hover {
   z-index: 0;
-  background-color: #000;
-  opacity: .8;
   cursor: pointer;
 }
 
@@ -21,6 +20,7 @@
   background-size: 26px 26px;
   background-position: center;
   background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.8);
   background-image: url(../../../images/icons/pencil.svg);
   content: '';
   visibility: hidden;
@@ -30,5 +30,5 @@
 
 .profile__avatar-container:hover::before {
   visibility: visible;
-  opacity: .8;
+  opacity: 1;
 }
