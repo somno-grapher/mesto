@@ -203,7 +203,7 @@ const formElementAvatarUpdate = document.forms['update-avatar-form'];
 const avatarLinkInput = formElementAvatarUpdate.querySelector('.input-field_name_avatar-link');
 const formAvatarUpdateValidator = new FormValidator(validationSettings, formElementAvatarUpdate);
 formAvatarUpdateValidator.enableValidation();
-const buttonAvatarUpdate = document.querySelector('.avatar');
+const buttonAvatarUpdate = document.querySelector('.profile__avatar-container');
 buttonAvatarUpdate.addEventListener('click', () => {
   const userInfoData = userInfo.getUserInfo();
   avatarLinkInput.value = userInfoData.avatar;
