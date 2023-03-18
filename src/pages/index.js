@@ -68,6 +68,9 @@ function deleteCard(id, element) {
       })
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        popupWithConfirmation.close();
       });
   });
 }
