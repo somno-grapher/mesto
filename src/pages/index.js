@@ -26,6 +26,7 @@ const cardSettings = {
   fullPhotoSelector: '.full-photo',
   fullPhotoTitle: '.popup__title'
 }
+const popupAvatarUpdateSelector = '.popup_type_update-avatar';
 const popupProfileEditSelector = '.popup_type_edit-profile';
 const popupWithConfirmationSelector = '.popup_type_confirm';
 const photoGridListSelector = '.photo-grid__list';
@@ -127,6 +128,22 @@ function likeCard(id, buttonLike, buttonLikeLikedClass, counterLikes) {
     });
 }
 
+function updateAvatar(data) {
+  const info = {
+    link: data['avatar-link'],
+  }
+  api.updateAvatar(info)
+    .then(jsonResponseUser => {
+      userInfo.setAvatar(jsonResponseUser);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupAvatarUpdate.close();
+    });
+};
+
 // * main code
 
 // user info features
@@ -178,6 +195,21 @@ const photoGridList = new Section(
   },
   photoGridListSelector
 );
+
+// updating avatar features
+const popupAvatarUpdate = new PopupWithForm(popupAvatarUpdateSelector, updateAvatar);
+popupAvatarUpdate.setEventListeners();
+const formElementAvatarUpdate = document.forms['update-avatar-form'];
+const avatarLinkInput = formElementAvatarUpdate.querySelector('.input-field_name_avatar-link');
+const formAvatarUpdateValidator = new FormValidator(validationSettings, formElementAvatarUpdate);
+formAvatarUpdateValidator.enableValidation();
+const buttonAvatarUpdate = document.querySelector('.avatar');
+buttonAvatarUpdate.addEventListener('click', () => {
+  const userInfoData = userInfo.getUserInfo();
+  avatarLinkInput.value = userInfoData.avatar;
+  formAvatarUpdateValidator.validateOnOpening();
+  popupAvatarUpdate.open();
+});
 
 
 // api features

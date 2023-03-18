@@ -7,7 +7,11 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    return { name: this._name.textContent, about: this._about.textContent };
+    return { name: this._name.textContent, about: this._about.textContent, avatar: this._avatar.src };
+  }
+
+  setAvatar(data) {
+    this._avatar.src = data.avatar;
   }
 
   setUserInfo(data) {
@@ -17,7 +21,7 @@ export default class UserInfo {
 
   setInitialUserInfo(data) {
     this.setUserInfo(data);
-    this._avatar.src = data.avatar;
+    this.setAvatar(data);
   }
 
 }

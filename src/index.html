@@ -115,8 +115,8 @@
                  id="card-link-input"
                  class="input-field input-field_name_card-photo-link popup__input"
                  required>
+          <span class="card-link-input-error popup__error"></span>
         </label>
-        <span class="card-link-input-error popup__error"></span>
         <button type="submit"
                 class="save-button popup__save-button">Сохранить</button>
       </form>
@@ -142,6 +142,30 @@
             novalidate>
         <button type="submit"
                 class="save-button popup__save-button">Да</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_type_update-avatar">
+    <div class="popup__container popup__container_type_edit-window">
+      <button type="button"
+              class="close-button popup__close-button"></button>
+      <h2 class="popup__title popup__title_type_edit-window">Обновить аватар</h2>
+      <form name="update-avatar-form"
+            class="popup__form"
+            novalidate>
+        <label class="popup__label">
+          <!-- additional class? -->
+          <input name="avatar-link"
+                 type="url"
+                 placeholder="Ссылка"
+                 id="avatar-link-input"
+                 class="input-field input-field_name_avatar-link popup__input"
+                 required>
+          <span class="avatar-link-input-error popup__error"></span>
+        </label>
+        <button type="submit"
+                class="save-button popup__save-button">Сохранить</button>
       </form>
     </div>
   </div>

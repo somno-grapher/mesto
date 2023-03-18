@@ -84,13 +84,27 @@ export default class Api {
       method = 'DELETE';
     }
     return fetch(
-    `${this._basePath}/cards/${id}/likes`,
-    {
-      method: method,
-      headers: this._getHeaders(),
-    },
-  )
-  .then(this._getJsonPromise);
+      `${this._basePath}/cards/${id}/likes`,
+      {
+        method: method,
+        headers: this._getHeaders(),
+      },
+    )
+      .then(this._getJsonPromise);
+  }
+
+  updateAvatar({ link }) {
+    return fetch(
+      `${this._basePath}/users/me/avatar`,
+      {
+        method: 'PATCH',
+        headers: this._getHeaders(),
+        body: JSON.stringify({
+          avatar: link,
+        })
+      },
+    )
+      .then(this._getJsonPromise);
   }
 
 }
