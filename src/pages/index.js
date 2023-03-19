@@ -204,7 +204,7 @@ formAvatarUpdateValidator.enableValidation();
 const buttonAvatarUpdate = document.querySelector('.profile__avatar-container');
 buttonAvatarUpdate.addEventListener('click', () => {
   const userInfoData = userInfo.getUserInfo();
-  avatarLinkInput.value = userInfoData.avatar;
+  avatarLinkInput.value = '';
   formAvatarUpdateValidator.validateOnOpening();
   popupAvatarUpdate.open();
 });
