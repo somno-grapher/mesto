@@ -45,15 +45,11 @@ export default class Card {
 
   _setEventListeners() {
     this._likeButton.addEventListener('click', () => {
-      this._handleLikeButtonClick(
-        this._item._id,
-        this._likeButton,
-        this._cardSettings.buttonLikeLikedClass,
-        this._counterLikes);
+      this._handleLikeButtonClick(this);
     });
     if (this._isOwner) {
       this._deleteButton.addEventListener('click', () => {
-        this._handleDeleteButtonClick(this._item._id, this);
+        this._handleDeleteButtonClick(this);
       });
     }
     this._photo.addEventListener('click', () => {
@@ -70,6 +66,10 @@ export default class Card {
 
   // public methods: ascending order
 
+  checkLikeOnLike() {
+    return this._likeButton.classList.contains(this._cardSettings.buttonLikeLikedClass);
+  }
+
   deleteCardElement() {
     this._card.remove();
     this._card = null;
@@ -81,9 +81,21 @@ export default class Card {
     };
     const isLiked = this._checkLikeOnCardGeneration();
     this._setLikeOnCardGeneration(isLiked);
-    this._counterLikes.textContent = this._item.likes.length;
+    this.setCounterLikes(this._item);
     this._setEventListeners();
     return this._card;
+  }
+
+  getId() {
+    return this._item._id;
+  }
+
+  toggleLike() {
+    this._likeButton.classList.toggle(this._cardSettings.buttonLikeLikedClass);
+  }
+
+  setCounterLikes(item) {
+    this._counterLikes.textContent = item.likes.length;
   }
 
 }

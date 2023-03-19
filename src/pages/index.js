@@ -60,9 +60,9 @@ function createCard(item) {
   return cardElement;
 }
 
-function deleteCard(id, card) {
+function deleteCard(card) {
   popupWithConfirmation.open(() => {
-    api.deleteCardFromServer(id)
+    api.deleteCardFromServer(card.getId())
       .then(() => {
         card.deleteCardElement();
         popupWithConfirmation.close();
@@ -110,17 +110,17 @@ function setUserInfo(data) {
     });
 };
 
-function likeCard(id, buttonLike, buttonLikeLikedClass, counterLikes) {
+function likeCard(card) {
   let isLiked;
-  if (buttonLike.classList.contains(buttonLikeLikedClass)) {
+  if (card.checkLikeOnLike()) {
     isLiked = true;
   } else {
     isLiked = false;
   }
-  api.likeCard(id, isLiked)
+  api.likeCard(card.getId(), isLiked)
     .then((item) => {
-      buttonLike.classList.toggle(buttonLikeLikedClass);
-      counterLikes.textContent = item.likes.length;
+      card.toggleLike();
+      card.setCounterLikes(item);
     })
     .catch(err => {
       console.log(err);
