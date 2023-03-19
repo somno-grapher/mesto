@@ -53,7 +53,7 @@ export default class Card {
     });
     if (this._isOwner) {
       this._deleteButton.addEventListener('click', () => {
-        this._handleDeleteButtonClick(this._item._id, this._card);
+        this._handleDeleteButtonClick(this._item._id, this);
       });
     }
     this._photo.addEventListener('click', () => {
@@ -69,6 +69,11 @@ export default class Card {
 
 
   // public methods: ascending order
+
+  deleteCardElement() {
+    this._card.remove();
+    this._card = null;
+  }
 
   generateCardElement() {
     if (!this._isOwner) {

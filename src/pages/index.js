@@ -60,12 +60,11 @@ function createCard(item) {
   return cardElement;
 }
 
-function deleteCard(id, element) {
+function deleteCard(id, card) {
   popupWithConfirmation.open(() => {
     api.deleteCardFromServer(id)
       .then(() => {
-        element.remove();
-        element = null;
+        card.deleteCardElement();
         popupWithConfirmation.close();
       })
       .catch(err => {
