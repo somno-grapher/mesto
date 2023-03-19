@@ -66,13 +66,11 @@ function deleteCard(id, element) {
       .then(() => {
         element.remove();
         element = null;
+        popupWithConfirmation.close();
       })
       .catch(err => {
         console.log(err);
       });
-    // .finally(() => {
-    //   popupWithConfirmation.close();
-    // })
   });
 }
 
