@@ -83,12 +83,13 @@ function submitAddCardForm(formValues) {
     .then(jsonResponseCard => {
       const cardElement = createCard(jsonResponseCard);
       photoGridList.addItem(cardElement, true);
+      popupCardAdd.close();
     })
     .catch(err => {
       console.log(err);
     })
     .finally(() => {
-      popupCardAdd.close();
+      popupCardAdd.releaseBusyState();
     });
 };
 
@@ -100,12 +101,13 @@ function setUserInfo(data) {
   api.patchUserInfo(info)
     .then(jsonResponseUser => {
       userInfo.setUserInfo(jsonResponseUser);
+      popupProfileEdit.close();
     })
     .catch(err => {
       console.log(err);
     })
     .finally(() => {
-      popupProfileEdit.close();
+      popupProfileEdit.releaseBusyState();
     });
 };
 
@@ -133,12 +135,13 @@ function updateAvatar(data) {
   api.updateAvatar(info)
     .then(jsonResponseUser => {
       userInfo.setAvatar(jsonResponseUser);
+      popupAvatarUpdate.close();
     })
     .catch(err => {
       console.log(err);
     })
     .finally(() => {
-      popupAvatarUpdate.close();
+      popupAvatarUpdate.releaseBusyState();
     });
 };
 

@@ -20,7 +20,6 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    this._releaseBusyState();
     this._form.reset();
   }
 
@@ -33,7 +32,7 @@ export default class PopupWithForm extends Popup {
     this._buttonConfirm.textContent = "Сохранение...";
   }
 
-  _releaseBusyState() {
+  releaseBusyState() {
     this._buttonConfirm.textContent = this._buttonConfirmNormalTextContent;
   }
 
