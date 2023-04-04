@@ -12,60 +12,54 @@ import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 
 // * vars derived from literals: ascending
-const popupCardAddSelector = '.popup_type_add-card';
 const cardSettings = {
-  templateSelector: '#card-template',
   itemSelector: '.card',
-  buttonDeleteSelector: '.delete-button',
   buttonDeleteHiddenClass: 'card__delete-button_hidden',
-  buttonLikeSelector: '.like-button',
-  counterLikesSelector: '.card__counter-likes',
-  photoSelector: '.card__photo',
-  titleSelector: '.card__title',
+  buttonDeleteSelector: '.delete-button',
   buttonLikeLikedClass: 'like-button_liked',
-  fullPhotoSelector: '.full-photo',
-  fullPhotoTitle: '.popup__title'
+  buttonLikeSelector: '.like-button',
+  imageSelector: '.card__photo',
+  likesCounterSelector: '.card__counter-likes',
+  templateSelector: '#card-template',
+  titleSelector: '.card__title',
 }
-const popupAvatarUpdateSelector = '.popup_type_update-avatar';
-const popupProfileEditSelector = '.popup_type_edit-profile';
-const popupWithConfirmationSelector = '.popup_type_confirm';
-const photoGridListSelector = '.photo-grid__list';
-const userInfoSelectors = {
-  nameSelector: '.profile__name',
+const profileSettings = {
   aboutSelector: '.profile__about',
-  avatarSelector: '.avatar'
-};
+  avatarSelector: '.avatar',
+  nameSelector: '.profile__name'
+}; profileSettings
 const validationSettings = {
+  buttonDisabledClass: 'popup__save-button_disabled',
+  buttonSelector: '.popup__save-button',
+  errorClass: 'popup__error_visible',
   formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  saveButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
+  inputSelector: '.popup__input'
 }
 
 
 // * functions: ascending
 
 function createCard(item) {
-  const cardElement = new Card(
+  const card = new Card(
     item,
     currentUserId,
     cardSettings,
-    showPhotoPopup.open.bind(showPhotoPopup),
+    cardPreviewPopup.open.bind(cardPreviewPopup),
     deleteCard,
     likeCard
-  )
-    .generateCardElement();
+  );
+  const cardElement = card.createElement();
   return cardElement;
 }
 
 function deleteCard(card) {
-  popupWithConfirmation.open(() => {
+  actionConfirmPopup.open(() => {
     api.deleteCardFromServer(card.getId())
       .then(() => {
         card.deleteCardElement();
-        popupWithConfirmation.close();
+        card = null;
+        actionConfirmPopup.close();
       })
       .catch(err => {
         console.log(err);
@@ -147,10 +141,10 @@ function updateAvatar(data) {
 // * main code
 
 // user info features
-const userInfo = new UserInfo(userInfoSelectors);
+const userInfo = new UserInfo(profileSettings);
 
 // adding card features
-const popupCardAdd = new PopupWithForm(popupCardAddSelector, submitAddCardForm);
+const popupCardAdd = new PopupWithForm('.popup_type_add-card', submitAddCardForm);
 popupCardAdd.setEventListeners();
 const formElementCardAdd = document.forms['add-card-form'];
 const formCardAddValidator = new FormValidator(validationSettings, formElementCardAdd);
@@ -162,7 +156,7 @@ buttonCardAdd.addEventListener('click', () => {
 });
 
 // editing profile features
-const popupProfileEdit = new PopupWithForm(popupProfileEditSelector, setUserInfo);
+const popupProfileEdit = new PopupWithForm('.popup_type_edit-profile', setUserInfo);
 popupProfileEdit.setEventListeners();
 const formElementProfileEdit = document.forms['edit-profile-form'];
 const profileAboutInput = formElementProfileEdit.querySelector('.input-field_name_profile-about');
@@ -179,13 +173,13 @@ buttonProfileEdit.addEventListener('click', () => {
 });
 
 // deleting card features
-const popupWithConfirmation = new PopupWithConfirmation(popupWithConfirmationSelector);
-popupWithConfirmation.setEventListeners();
+const actionConfirmPopup = new PopupWithConfirmation('.popup_type_confirm');
+actionConfirmPopup.setEventListeners();
 
 
 // showing photo features
-const showPhotoPopup = new PopupWithImage('.popup_type_show-photo');
-showPhotoPopup.setEventListeners();
+const cardPreviewPopup = new PopupWithImage('.popup_type_show-photo');
+cardPreviewPopup.setEventListeners();
 
 // photo grid features
 const photoGridList = new Section(
@@ -193,11 +187,11 @@ const photoGridList = new Section(
     const cardElement = createCard(item);
     photoGridList.addItem(cardElement, false);
   },
-  photoGridListSelector
+  '.photo-grid__list'
 );
 
 // updating avatar features
-const popupAvatarUpdate = new PopupWithForm(popupAvatarUpdateSelector, updateAvatar);
+const popupAvatarUpdate = new PopupWithForm('.popup_type_update-avatar', updateAvatar);
 popupAvatarUpdate.setEventListeners();
 const formElementAvatarUpdate = document.forms['update-avatar-form'];
 const avatarLinkInput = formElementAvatarUpdate.querySelector('.input-field_name_avatar-link');
@@ -205,7 +199,6 @@ const formAvatarUpdateValidator = new FormValidator(validationSettings, formElem
 formAvatarUpdateValidator.enableValidation();
 const buttonAvatarUpdate = document.querySelector('.profile__avatar-container');
 buttonAvatarUpdate.addEventListener('click', () => {
-  const userInfoData = userInfo.getUserInfo();
   avatarLinkInput.value = '';
   formAvatarUpdateValidator.validateOnOpening();
   popupAvatarUpdate.open();

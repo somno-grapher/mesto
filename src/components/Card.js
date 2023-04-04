@@ -19,10 +19,10 @@ export default class Card {
     this._card = this._cardTemplate.cloneNode(true);
 
     // root vars derived from this._card and this._cardSettings
-    this._counterLikes = this._card.querySelector(this._cardSettings.counterLikesSelector);
+    this._counterLikes = this._card.querySelector(this._cardSettings.likesCounterSelector);
     this._deleteButton = this._card.querySelector(this._cardSettings.buttonDeleteSelector);
     this._likeButton = this._card.querySelector(this._cardSettings.buttonLikeSelector);
-    this._photo = this._card.querySelector(this._cardSettings.photoSelector);
+    this._photo = this._card.querySelector(this._cardSettings.imageSelector);
     this._title = this._card.querySelector(this._cardSettings.titleSelector);
 
     // this._photo properties derived from this._item
@@ -75,7 +75,7 @@ export default class Card {
     this._card = null;
   }
 
-  generateCardElement() {
+  createElement() {
     if (!this._isOwner) {
       this._deleteButton.classList.add(this._cardSettings.buttonDeleteHiddenClass);
     };
